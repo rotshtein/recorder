@@ -47,16 +47,6 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Label" id="label1">
-            <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">Frequency Specifications</property>
-          </widget>
-          <packing>
-            <property name="X">55</property>
-            <property name="Y">40</property>
-          </packing>
-        </child>
-        <child>
           <widget class="Gtk.Entry" id="entry2">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
@@ -177,6 +167,16 @@ Manual</property>
           <packing>
             <property name="X">145</property>
             <property name="Y">270</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label1">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Frequency Specifications</property>
+          </widget>
+          <packing>
+            <property name="X">57</property>
+            <property name="Y">49</property>
           </packing>
         </child>
       </widget>

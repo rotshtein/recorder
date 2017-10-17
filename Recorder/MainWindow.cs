@@ -49,9 +49,9 @@ public partial class MainWindow: Gtk.Window
 	protected void OnCombobox3Changed (object sender, EventArgs e)
 	{
 		if (combobox3.Active == 0) {
-			entry3.Sensitive = false;
+		//	entry3.Sensitive = false;
 		} else {
-			entry3.Sensitive = true;
+		//	entry3.Sensitive = true;
 		}
 		//throw new NotImplementedException ();
 	}

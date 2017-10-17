@@ -10,8 +10,10 @@
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="403 311">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="Title" translatable="yes">Recorder</property>
+    <property name="Icon">stock:stock_save Menu</property>
     <property name="WindowPosition">CenterOnParent</property>
+    <property name="BorderWidth">2</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
       <widget class="Gtk.Fixed" id="fixed1">

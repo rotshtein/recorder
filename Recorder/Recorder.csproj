@@ -56,14 +56,19 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
-    <Reference Include="NPlot">
-      <HintPath>..\packages\NPlot.0.9.10.0\lib\net20\NPlot.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="DR.Login.Client.Core">
       <HintPath>..\packages\DR.Login.Client.Core.1.0.5\lib\net45\DR.Login.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="NPlot">
+      <HintPath>..\packages\nplot-gtk-0.9.9.2\NPlot.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -81,5 +86,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="License-LGPL.txt" />
   </ItemGroup>
 </Project>

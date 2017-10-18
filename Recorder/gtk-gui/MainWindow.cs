@@ -30,6 +30,8 @@ public partial class MainWindow
 	private global::Gtk.Button button2;
 	
 	private global::Gtk.Label label1;
+	
+	private global::Gtk.Image image;
 
 	protected virtual void Build ()
 	{
@@ -167,12 +169,19 @@ public partial class MainWindow
 		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label1]));
 		w13.X = 57;
 		w13.Y = 49;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.image = new global::Gtk.Image ();
+		this.image.Name = "image";
+		this.fixed1.Add (this.image);
+		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.image]));
+		w14.X = 21;
+		w14.Y = 317;
 		this.Add (this.fixed1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
 		this.DefaultWidth = 403;
-		this.DefaultHeight = 311;
+		this.DefaultHeight = 609;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.combobox1.Changed += new global::System.EventHandler (this.OnCombobox1Changed);

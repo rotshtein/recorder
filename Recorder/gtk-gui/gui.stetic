@@ -8,7 +8,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/Recorder.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="403 311">
+  <widget class="Gtk.Window" id="MainWindow" design-size="403 609">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Recorder</property>
     <property name="Icon">stock:stock_save Menu</property>
@@ -179,6 +179,15 @@ Manual</property>
           <packing>
             <property name="X">57</property>
             <property name="Y">49</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Image" id="image">
+            <property name="MemberName">graph</property>
+          </widget>
+          <packing>
+            <property name="X">21</property>
+            <property name="Y">317</property>
           </packing>
         </child>
       </widget>

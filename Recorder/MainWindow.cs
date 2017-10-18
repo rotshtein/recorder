@@ -5,6 +5,10 @@ using NPlot.Bitmap;
 using NPlot.Web;
 using NPlot.Windows;
 //using System.Drawing;
+using Gdk;
+using ZedGraph;
+using System.Drawing;
+using System.IO;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -58,6 +62,8 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnButton2Clicked (object sender, EventArgs e)
 	{
+		LinePlot lp = new LinePlot ();
+		PointPlot pp = new PointPlot ();
 		float[] x = new float[1000];
 		float[] y = new float[1000];
 
@@ -65,40 +71,35 @@ public partial class MainWindow: Gtk.Window
 			x[ii] = ii;
 			y[ii] = 2 * x [ii] - 1;
 		}
-	/*
+	
 		//throw new NotImplementedException ();
-		NPlot.Bitmap.PlotSurface2npD npSurface = new NPlot.Bitmap.PlotSurface2D(1000,1000);
-		NPlot.LinePlot npPlot1 = new NPlot.LinePlot();
-		npSurface.Clear ();
+
+		NPlot.Bitmap.PlotSurface2D npSurface = new NPlot.Bitmap.PlotSurface2D(1000,1000);
+		//NPlot.Windows.PlotSurface2D npSurface = new NPlot.Windows.PlotSurface2D();
+		lp.AbscissaData = x;
+		lp.DataSource = y;
+		lp.Color =  System.Drawing.Color.Green;
+		npSurface.Add (lp);
+		npSurface.XAxis1.Label = "X-Axis";
+		npSurface.YAxis1.Label = "Y-Axis";
 		npSurface.Title = "Demo1";
-		npSurface.BackColor = Color.White;
-		npSurface.TitleFont = TitleFont;
-
-		npPlot1.AbscissaData = x;
-		npPlot1.DataSource = y;
-		npPlot1.Color = Color.Blue;
-		npPlot1.Label = "Timeseries 1";
-		npSurface.Add (npPlot1, NPlot.PlotSurface2D.XAxisPosition.Bottom, NPlot.PlotSurface2D.YAxisPosition.Left);
-
-		npSurface.XAxis1.Label = "Timestamp";
-		npSurface.XAxis1.LabelFont = AxisFont;
-		npSurface.XAxis1.TickTextFont = TickFont;
-		npSurface.XAxis1.NumberFormat = "yyyy-MM-dd HH:mm";
-		npSurface.XAxis1.TicksLabelAngle = 90;
-		npSurface.XAxis1.TickTextNextToAxis = True;
-		npSurface.XAxis1.FlipTicksLabel = True;
-		npSurface.XAxis1.LabelOffset = 110;
-		npSurface.XAxis1.LabelOffsetAbsolute = True;
-
-
-			//'Prepare left Y axis (a Plot MUST first be assigned to the left Y axis):
-		npSurface.YAxis1.Label = "Value";
-		npSurface.YAxis1.LabelFont = AxisFont;
-		npSurface.YAxis1.TickTextFont = TickFont;
-		npSurface.YAxis1.NumberFormat = "{0:####0.0}";
+		npSurface.BackColor = System.Drawing.Color.White;
 
 		npSurface.Refresh ();
 
-		*/
+		MemoryStream ms = new MemoryStream();
+		try
+		{
+			npSurface.Bitmap.Save(ms,System.Drawing.Imaging.ImageFormat.Png);
+
+			ms.Position = 0;
+			Pixbuf p = new Gdk.Pixbuf (ms);
+
+			image.Pixbuf = p;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.ToString());
+		}
 	}
 }

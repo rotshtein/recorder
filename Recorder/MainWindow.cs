@@ -16,7 +16,11 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 
-		filechooserbutton1.Action = FileChooserAction.Save;
+		//filechooserbutton1.Action = FileChooserAction.Save;
+		combobox3.Active = 0;
+		entry3.Sensitive = false;
+
+
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -53,9 +57,9 @@ public partial class MainWindow: Gtk.Window
 	protected void OnCombobox3Changed (object sender, EventArgs e)
 	{
 		if (combobox3.Active == 0) {
-		//	entry3.Sensitive = false;
+			entry3.Sensitive = false;
 		} else {
-		//	entry3.Sensitive = true;
+			entry3.Sensitive = true;
 		}
 		//throw new NotImplementedException ();
 	}
@@ -101,5 +105,24 @@ public partial class MainWindow: Gtk.Window
 		{
 			Console.WriteLine(ex.ToString());
 		}
+	}
+
+	protected void OnButton3Clicked (object sender, EventArgs e)
+	{
+		Gtk.FileChooserDialog filechooser =
+			new Gtk.FileChooserDialog("Choose the file to open",
+				this,
+				FileChooserAction.Open,
+				"Cancel",ResponseType.Cancel,
+				"Open",ResponseType.Accept);
+
+		if (filechooser.Run() == (int)ResponseType.Accept) 
+		{
+			System.IO.FileStream file = System.IO.File.OpenRead(filechooser.Filename);
+			file.Close();
+		}
+
+		filechooser.Destroy();
+
 	}
 }

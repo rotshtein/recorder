@@ -6,7 +6,6 @@ using NPlot.Web;
 using NPlot.Windows;
 //using System.Drawing;
 using Gdk;
-using ZedGraph;
 using System.Drawing;
 using System.IO;
 

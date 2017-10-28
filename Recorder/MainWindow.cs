@@ -60,7 +60,8 @@ public partial class MainWindow: Gtk.Window
 	{
 
 		Recorder.winSpectrum spectrum = new Recorder.winSpectrum ();
-		spectrum.ShowSpectrum ();
+		string Filename = spectrum.GetMessurment (1000, 100, "/home/x300/spectrum.dat");
+		spectrum.ShowSpectrum (Filename);
 
 	}
 

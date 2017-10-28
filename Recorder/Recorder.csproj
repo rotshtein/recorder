@@ -61,6 +61,7 @@
     <Reference Include="NPlot">
       <HintPath>..\packages\NPlot.0.9.10.0\lib\net20\NPlot.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -79,5 +80,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\app.config" />
   </ItemGroup>
 </Project>

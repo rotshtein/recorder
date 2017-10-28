@@ -58,7 +58,7 @@ public partial class MainWindow
 		w1.Y = 13;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.combobox1 = global::Gtk.ComboBox.NewText ();
-		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Center [MHz]\r"));
+		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Center [MHz]"));
 		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Lower Freq [MHz]"));
 		this.combobox1.Name = "combobox1";
 		this.combobox1.Active = 0;
@@ -68,7 +68,7 @@ public partial class MainWindow
 		w2.Y = 35;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.combobox2 = global::Gtk.ComboBox.NewText ();
-		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Bandwidth [MHz]\r"));
+		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Bandwidth [MHz]"));
 		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Upper Freq [MHz]"));
 		this.combobox2.Name = "combobox2";
 		this.combobox2.Active = 0;
@@ -108,8 +108,8 @@ public partial class MainWindow
 		w6.Y = 300;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.combobox4 = global::Gtk.ComboBox.NewText ();
-		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Time [msec]\r"));
-		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Samples [x10^6]\r"));
+		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Time [msec]"));
+		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Samples [x10^6]"));
 		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Total File Size [GB]"));
 		this.combobox4.Name = "combobox4";
 		this.combobox4.Active = 0;
@@ -127,7 +127,7 @@ public partial class MainWindow
 		w8.Y = 220;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.combobox3 = global::Gtk.ComboBox.NewText ();
-		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Automatic\r"));
+		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Automatic"));
 		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Manual"));
 		this.combobox3.Name = "combobox3";
 		this.combobox3.Active = 1;

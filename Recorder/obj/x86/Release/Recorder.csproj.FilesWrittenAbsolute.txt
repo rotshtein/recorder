@@ -1,0 +1,8 @@
+/media/sf_share/Recorder/Recorder/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/media/sf_share/Recorder/Recorder/obj/x86/Release/Recorder.gtk-gui.gui.stetic
+/media/sf_share/Recorder/Recorder/bin/Release/Recorder.exe.config
+/media/sf_share/Recorder/Recorder/bin/Release/Recorder.pdb
+/media/sf_share/Recorder/Recorder/bin/Release/Recorder.exe
+/media/sf_share/Recorder/Recorder/obj/x86/Release/Recorder.exe
+/media/sf_share/Recorder/Recorder/obj/x86/Release/Recorder.pdb
+/media/sf_share/Recorder/Recorder/bin/Release/NPlot.dll

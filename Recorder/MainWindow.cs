@@ -5,11 +5,13 @@ using System.Configuration;
 using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
+using NLog;
 
 
 
 public partial class MainWindow: Gtk.Window
 {
+	private static Logger logger = LogManager.GetCurrentClassLogger();
 
 	public double Rate = 14e6;
 	public double UsefulBW;
@@ -492,7 +494,9 @@ public partial class MainWindow: Gtk.Window
 						//p.WaitForExit (1000 * 60);
 						string error = p.StandardError.ReadToEnd ();	
 					}
-				} catch (Exception ex) {
+				} catch (Exception ex) 
+				{
+					logger.Error (ex, "Failed to start the specrtum process");
 				}
 			}
 		}

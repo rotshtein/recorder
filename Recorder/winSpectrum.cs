@@ -6,12 +6,13 @@ using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Configuration;
+using NLog;
 
 namespace Recorder
 {
 	public partial class winSpectrum : Gtk.Window
 	{
-
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 
 		string spectru_exe = null;
 		public winSpectrum () :
@@ -46,7 +47,9 @@ namespace Recorder
 						return Filename;
 					}
 				}
-				catch (Exception ex) {
+				catch (Exception ex) 
+				{
+					logger.Error (ex, "Fail to run the spectrum process");
 				}
 				return null;
 			}
@@ -112,6 +115,7 @@ namespace Recorder
 			}
 			catch (Exception ex) 
 			{
+				logger.Error (ex, "Fail to read the spectrum data from file. Filename:" + Filename);
 				return null;
 			}
 		}

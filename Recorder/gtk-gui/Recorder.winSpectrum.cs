@@ -33,6 +33,7 @@ namespace Recorder
 			this.DefaultWidth = 400;
 			this.DefaultHeight = 300;
 			this.Show ();
+
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace Recorder
 			spectru_exe = ConfigurationManager.AppSettings["Spectrum"];
 		}
 
-		public string GetMessurment(long f0, long q, string Filename="/home/x300/spectrum.dat")
+		public string GetMessurment(double f0, double Rate, double Gain, string Filename="/home/x300/spectrum.dat")
 		{
 			if (!string.IsNullOrEmpty (spectru_exe) && File.Exists (spectru_exe)) 
 			{
@@ -30,7 +30,7 @@ namespace Recorder
 				p.StartInfo.RedirectStandardOutput = true;
 				p.StartInfo.RedirectStandardError = true;
 				p.StartInfo.FileName = spectru_exe;
-				p.StartInfo.Arguments = "-f0 " + f0.ToString() + " -q " + q.ToString() + " -o " + Filename;
+				p.StartInfo.Arguments = "--mode spec --freq " + f0.ToString() + " --rate " + Rate.ToString() + " --file " + Filename;
 				try
 				{
 					if (p.Start ()) 

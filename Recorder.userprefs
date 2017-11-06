@@ -1,16 +1,17 @@
 ﻿<Properties StartupItem="Recorder/Recorder.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Recorder/MainWindow.cs">
     <Files>
-      <File FileName="Recorder/MainWindow.cs" Line="64" Column="1" />
-      <File FileName="Recorder/Program.cs" Line="17" Column="1" />
-      <File FileName="Recorder/winSpectrum.cs" Line="114" Column="4" />
-      <File FileName="Recorder/Properties/app.config" Line="4" Column="23" />
+      <File FileName="Recorder/MainWindow.cs" Line="18" Column="15" />
+      <File FileName="Recorder/Program.cs" Line="1" Column="1" />
+      <File FileName="Recorder/winSpectrum.cs" Line="1" Column="1" />
+      <File FileName="Recorder/Properties/app.config" Line="1" Column="1" />
+      <File FileName="Recorder/Properties/AssemblyInfo.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/media/sf_share/Recorder/Recorder/winSpectrum.cs" line="115" column="5" />
+      <Breakpoint file="/media/sf_share/Recorder/Recorder/winSpectrum.cs" line="119" column="5" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -5,19 +5,17 @@ public partial class MainWindow
 {
 	private global::Gtk.Fixed fixed1;
 	
-	private global::Gtk.Label label1;
-	
-	private global::Gtk.ComboBox combobox1;
-	
-	private global::Gtk.ComboBox combobox2;
-	
-	private global::Gtk.Entry entry1;
-	
-	private global::Gtk.Entry entry2;
-	
 	private global::Gtk.Button button2;
 	
 	private global::Gtk.ComboBox combobox4;
+	
+	private global::Gtk.Button button3;
+	
+	private global::Gtk.Entry entry5;
+	
+	private global::Gtk.CheckButton checkbutton1;
+	
+	private global::Gtk.Entry entry4;
 	
 	private global::Gtk.Label label3;
 	
@@ -25,77 +23,46 @@ public partial class MainWindow
 	
 	private global::Gtk.Label label2;
 	
-	private global::Gtk.Entry entry4;
+	private global::Gtk.ComboBox combobox2;
+	
+	private global::Gtk.ComboBox combobox1;
+	
+	private global::Gtk.Label label1;
+	
+	private global::Gtk.RadioButton radiobutton1;
+	
+	private global::Gtk.RadioButton radiobutton2;
 	
 	private global::Gtk.Entry entry3;
 	
-	private global::Gtk.Button button3;
+	private global::Gtk.Entry entry2;
+	
+	private global::Gtk.Entry entry1;
 	
 	private global::Gtk.Button button1;
+	
+	private global::Gtk.Button button4;
+	
+	private global::Gtk.Button button5;
 
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
+		this.WidthRequest = 500;
+		this.HeightRequest = 500;
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString ("Recorder");
 		this.Icon = global::Stetic.IconLoader.LoadIcon (this, "stock_save", global::Gtk.IconSize.Menu);
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
-		this.BorderWidth = ((uint)(2));
 		this.Resizable = false;
 		this.AllowGrow = false;
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.fixed1 = new global::Gtk.Fixed ();
+		this.fixed1.WidthRequest = 500;
+		this.fixed1.HeightRequest = 500;
 		this.fixed1.Name = "fixed1";
 		this.fixed1.HasWindow = false;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.label1 = new global::Gtk.Label ();
-		this.label1.Name = "label1";
-		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Frequency Specifications");
-		this.fixed1.Add (this.label1);
-		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label1]));
-		w1.X = 56;
-		w1.Y = 13;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.combobox1 = global::Gtk.ComboBox.NewText ();
-		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Center [MHz]"));
-		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Lower Freq [MHz]"));
-		this.combobox1.Name = "combobox1";
-		this.combobox1.Active = 0;
-		this.fixed1.Add (this.combobox1);
-		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox1]));
-		w2.X = 67;
-		w2.Y = 35;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.combobox2 = global::Gtk.ComboBox.NewText ();
-		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Bandwidth [MHz]"));
-		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Upper Freq [MHz]"));
-		this.combobox2.Name = "combobox2";
-		this.combobox2.Active = 0;
-		this.fixed1.Add (this.combobox2);
-		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox2]));
-		w3.X = 67;
-		w3.Y = 86;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.entry1 = new global::Gtk.Entry ();
-		this.entry1.CanFocus = true;
-		this.entry1.Name = "entry1";
-		this.entry1.IsEditable = true;
-		this.entry1.InvisibleChar = '●';
-		this.fixed1.Add (this.entry1);
-		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry1]));
-		w4.X = 235;
-		w4.Y = 47;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.entry2 = new global::Gtk.Entry ();
-		this.entry2.CanFocus = true;
-		this.entry2.Name = "entry2";
-		this.entry2.IsEditable = true;
-		this.entry2.InvisibleChar = '●';
-		this.fixed1.Add (this.entry2);
-		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry2]));
-		w5.X = 235;
-		w5.Y = 92;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.button2 = new global::Gtk.Button ();
 		this.button2.CanFocus = true;
@@ -103,46 +70,52 @@ public partial class MainWindow
 		this.button2.UseUnderline = true;
 		this.button2.Label = global::Mono.Unix.Catalog.GetString ("Spectrum");
 		this.fixed1.Add (this.button2);
-		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button2]));
-		w6.X = 70;
-		w6.Y = 300;
+		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button2]));
+		w1.X = 55;
+		w1.Y = 330;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.combobox4 = global::Gtk.ComboBox.NewText ();
 		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Time [msec]"));
 		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Samples [x10^6]"));
-		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("Total File Size [GB]"));
+		this.combobox4.AppendText (global::Mono.Unix.Catalog.GetString ("File Size [GB]"));
 		this.combobox4.Name = "combobox4";
-		this.combobox4.Active = 0;
+		this.combobox4.Active = 1;
 		this.fixed1.Add (this.combobox4);
-		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox4]));
-		w7.X = 67;
-		w7.Y = 237;
+		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox4]));
+		w2.X = 55;
+		w2.Y = 280;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.label3 = new global::Gtk.Label ();
-		this.label3.Name = "label3";
-		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Record Limit");
-		this.fixed1.Add (this.label3);
-		global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label3]));
-		w8.X = 53;
-		w8.Y = 220;
+		this.button3 = new global::Gtk.Button ();
+		this.button3.CanFocus = true;
+		this.button3.Name = "button3";
+		this.button3.UseUnderline = true;
+		this.button3.Label = global::Mono.Unix.Catalog.GetString ("Specify File");
+		this.fixed1.Add (this.button3);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button3]));
+		w3.X = 55;
+		w3.Y = 380;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.combobox3 = global::Gtk.ComboBox.NewText ();
-		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Automatic"));
-		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Manual"));
-		this.combobox3.Name = "combobox3";
-		this.combobox3.Active = 1;
-		this.fixed1.Add (this.combobox3);
-		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox3]));
-		w9.X = 67;
-		w9.Y = 158;
+		this.entry5 = new global::Gtk.Entry ();
+		this.entry5.CanFocus = true;
+		this.entry5.Name = "entry5";
+		this.entry5.IsEditable = true;
+		this.entry5.WidthChars = 30;
+		this.entry5.InvisibleChar = '•';
+		this.fixed1.Add (this.entry5);
+		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry5]));
+		w4.X = 189;
+		w4.Y = 382;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.label2 = new global::Gtk.Label ();
-		this.label2.Name = "label2";
-		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("AGC:");
-		this.fixed1.Add (this.label2);
-		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label2]));
-		w10.X = 53;
-		w10.Y = 137;
+		this.checkbutton1 = new global::Gtk.CheckButton ();
+		this.checkbutton1.CanFocus = true;
+		this.checkbutton1.Name = "checkbutton1";
+		this.checkbutton1.Label = global::Mono.Unix.Catalog.GetString ("Loop");
+		this.checkbutton1.DrawIndicator = true;
+		this.checkbutton1.UseUnderline = true;
+		this.fixed1.Add (this.checkbutton1);
+		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.checkbutton1]));
+		w5.X = 377;
+		w5.Y = 330;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.entry4 = new global::Gtk.Entry ();
 		this.entry4.CanFocus = true;
@@ -150,9 +123,85 @@ public partial class MainWindow
 		this.entry4.IsEditable = true;
 		this.entry4.InvisibleChar = '●';
 		this.fixed1.Add (this.entry4);
-		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry4]));
-		w11.X = 235;
-		w11.Y = 243;
+		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry4]));
+		w6.X = 255;
+		w6.Y = 282;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.label3 = new global::Gtk.Label ();
+		this.label3.Name = "label3";
+		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Record Limit");
+		this.fixed1.Add (this.label3);
+		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label3]));
+		w7.X = 55;
+		w7.Y = 250;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.combobox3 = global::Gtk.ComboBox.NewText ();
+		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Automatic"));
+		this.combobox3.AppendText (global::Mono.Unix.Catalog.GetString ("Manual"));
+		this.combobox3.Name = "combobox3";
+		this.combobox3.Active = 0;
+		this.fixed1.Add (this.combobox3);
+		global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox3]));
+		w8.X = 55;
+		w8.Y = 200;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.label2 = new global::Gtk.Label ();
+		this.label2.Name = "label2";
+		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("AGC:");
+		this.fixed1.Add (this.label2);
+		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label2]));
+		w9.X = 55;
+		w9.Y = 170;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.combobox2 = global::Gtk.ComboBox.NewText ();
+		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Bandwidth [MHz]"));
+		this.combobox2.AppendText (global::Mono.Unix.Catalog.GetString ("Upper Freq [MHz]"));
+		this.combobox2.Name = "combobox2";
+		this.combobox2.Active = 0;
+		this.fixed1.Add (this.combobox2);
+		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox2]));
+		w10.X = 55;
+		w10.Y = 120;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.combobox1 = global::Gtk.ComboBox.NewText ();
+		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Center [MHz]"));
+		this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("Lower Freq [MHz]"));
+		this.combobox1.Name = "combobox1";
+		this.combobox1.Active = 0;
+		this.fixed1.Add (this.combobox1);
+		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.combobox1]));
+		w11.X = 55;
+		w11.Y = 70;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.label1 = new global::Gtk.Label ();
+		this.label1.Name = "label1";
+		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Frequency Specifications");
+		this.fixed1.Add (this.label1);
+		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label1]));
+		w12.X = 55;
+		w12.Y = 40;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.radiobutton1 = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Record"));
+		this.radiobutton1.CanFocus = true;
+		this.radiobutton1.Name = "radiobutton1";
+		this.radiobutton1.DrawIndicator = true;
+		this.radiobutton1.UseUnderline = true;
+		this.radiobutton1.Group = new global::GLib.SList (global::System.IntPtr.Zero);
+		this.fixed1.Add (this.radiobutton1);
+		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radiobutton1]));
+		w13.X = 55;
+		w13.Y = 10;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.radiobutton2 = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Transmit"));
+		this.radiobutton2.CanFocus = true;
+		this.radiobutton2.Name = "radiobutton2";
+		this.radiobutton2.DrawIndicator = true;
+		this.radiobutton2.UseUnderline = true;
+		this.radiobutton2.Group = this.radiobutton1.Group;
+		this.fixed1.Add (this.radiobutton2);
+		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radiobutton2]));
+		w14.X = 280;
+		w14.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.entry3 = new global::Gtk.Entry ();
 		this.entry3.CanFocus = true;
@@ -160,19 +209,29 @@ public partial class MainWindow
 		this.entry3.IsEditable = true;
 		this.entry3.InvisibleChar = '•';
 		this.fixed1.Add (this.entry3);
-		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry3]));
-		w12.X = 235;
-		w12.Y = 179;
+		global::Gtk.Fixed.FixedChild w15 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry3]));
+		w15.X = 250;
+		w15.Y = 202;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.button3 = new global::Gtk.Button ();
-		this.button3.CanFocus = true;
-		this.button3.Name = "button3";
-		this.button3.UseUnderline = true;
-		this.button3.Label = global::Mono.Unix.Catalog.GetString ("GtkButton");
-		this.fixed1.Add (this.button3);
-		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button3]));
-		w13.X = 309;
-		w13.Y = 300;
+		this.entry2 = new global::Gtk.Entry ();
+		this.entry2.CanFocus = true;
+		this.entry2.Name = "entry2";
+		this.entry2.IsEditable = true;
+		this.entry2.InvisibleChar = '●';
+		this.fixed1.Add (this.entry2);
+		global::Gtk.Fixed.FixedChild w16 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry2]));
+		w16.X = 250;
+		w16.Y = 122;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.entry1 = new global::Gtk.Entry ();
+		this.entry1.CanFocus = true;
+		this.entry1.Name = "entry1";
+		this.entry1.IsEditable = true;
+		this.entry1.InvisibleChar = '●';
+		this.fixed1.Add (this.entry1);
+		global::Gtk.Fixed.FixedChild w17 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry1]));
+		w17.X = 250;
+		w17.Y = 72;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.button1 = new global::Gtk.Button ();
 		this.button1.CanFocus = true;
@@ -180,21 +239,43 @@ public partial class MainWindow
 		this.button1.UseUnderline = true;
 		this.button1.Label = global::Mono.Unix.Catalog.GetString ("Record");
 		this.fixed1.Add (this.button1);
-		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button1]));
-		w14.X = 192;
-		w14.Y = 300;
+		global::Gtk.Fixed.FixedChild w18 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button1]));
+		w18.X = 180;
+		w18.Y = 330;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.button4 = new global::Gtk.Button ();
+		this.button4.CanFocus = true;
+		this.button4.Name = "button4";
+		this.button4.UseUnderline = true;
+		this.button4.Label = global::Mono.Unix.Catalog.GetString ("Transmit");
+		this.fixed1.Add (this.button4);
+		global::Gtk.Fixed.FixedChild w19 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button4]));
+		w19.X = 289;
+		w19.Y = 330;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.button5 = new global::Gtk.Button ();
+		this.button5.CanFocus = true;
+		this.button5.Name = "button5";
+		this.button5.UseUnderline = true;
+		this.button5.Label = global::Mono.Unix.Catalog.GetString ("Stop");
+		this.fixed1.Add (this.button5);
+		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button5]));
+		w20.X = 212;
+		w20.Y = 455;
 		this.Add (this.fixed1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 436;
-		this.DefaultHeight = 364;
+		this.DefaultWidth = 3041;
+		this.DefaultHeight = 1000;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-		this.combobox1.Changed += new global::System.EventHandler (this.OnCombobox1Changed);
-		this.combobox2.Changed += new global::System.EventHandler (this.OnCombobox2Changed);
 		this.button2.Clicked += new global::System.EventHandler (this.OnButton2Clicked);
-		this.combobox3.Changed += new global::System.EventHandler (this.OnCombobox3Changed);
 		this.button3.Clicked += new global::System.EventHandler (this.OnButton3Clicked);
+		this.combobox3.Changed += new global::System.EventHandler (this.OnCombobox3Changed);
+		this.combobox2.Changed += new global::System.EventHandler (this.OnCombobox2Changed);
+		this.combobox1.Changed += new global::System.EventHandler (this.OnCombobox1Changed);
+		this.radiobutton1.Clicked += new global::System.EventHandler (this.OnRadiobutton1Clicked);
+		this.button1.Clicked += new global::System.EventHandler (this.OnButton1Clicked);
 	}
 }

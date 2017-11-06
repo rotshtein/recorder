@@ -8,44 +8,138 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/Recorder.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="436 364">
+  <widget class="Gtk.Window" id="MainWindow" design-size="3041 1000">
     <property name="MemberName" />
+    <property name="WidthRequest">500</property>
+    <property name="HeightRequest">500</property>
     <property name="Title" translatable="yes">Recorder</property>
     <property name="Icon">stock:stock_save Menu</property>
     <property name="WindowPosition">CenterOnParent</property>
-    <property name="BorderWidth">2</property>
     <property name="Resizable">False</property>
     <property name="AllowGrow">False</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
       <widget class="Gtk.Fixed" id="fixed1">
         <property name="MemberName" />
+        <property name="WidthRequest">500</property>
+        <property name="HeightRequest">500</property>
         <property name="HasWindow">False</property>
         <child>
           <placeholder />
         </child>
         <child>
-          <widget class="Gtk.Label" id="label1">
+          <widget class="Gtk.Button" id="button2">
             <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">Frequency Specifications</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Spectrum</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnButton2Clicked" />
           </widget>
           <packing>
-            <property name="X">56</property>
-            <property name="Y">13</property>
+            <property name="X">55</property>
+            <property name="Y">330</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="combobox1">
+          <widget class="Gtk.ComboBox" id="combobox4">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
-            <property name="Items" translatable="yes" context="yes">Lower Freq [MHz]|Center [MHz]
-Lower Freq [MHz]</property>
-            <property name="Active">0</property>
-            <signal name="Changed" handler="OnCombobox1Changed" />
+            <property name="Items" translatable="yes">Time [msec]
+Samples [x10^6]
+File Size [GB]</property>
+            <property name="Active">1</property>
           </widget>
           <packing>
-            <property name="X">67</property>
-            <property name="Y">35</property>
+            <property name="X">55</property>
+            <property name="Y">280</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="button3">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Specify File</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnButton3Clicked" />
+          </widget>
+          <packing>
+            <property name="X">55</property>
+            <property name="Y">380</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="entry5">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="WidthChars">30</property>
+            <property name="InvisibleChar">•</property>
+          </widget>
+          <packing>
+            <property name="X">189</property>
+            <property name="Y">382</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.CheckButton" id="checkbutton1">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">Loop</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+          </widget>
+          <packing>
+            <property name="X">377</property>
+            <property name="Y">330</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="entry4">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+          </widget>
+          <packing>
+            <property name="X">255</property>
+            <property name="Y">282</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label3">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Record Limit</property>
+          </widget>
+          <packing>
+            <property name="X">55</property>
+            <property name="Y">250</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ComboBox" id="combobox3">
+            <property name="MemberName" />
+            <property name="IsTextCombo">True</property>
+            <property name="Items" translatable="yes">Automatic
+Manual</property>
+            <property name="Active">0</property>
+            <signal name="Changed" handler="OnCombobox3Changed" />
+          </widget>
+          <packing>
+            <property name="X">55</property>
+            <property name="Y">200</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label2">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">AGC:</property>
+          </widget>
+          <packing>
+            <property name="X">55</property>
+            <property name="Y">170</property>
           </packing>
         </child>
         <child>
@@ -58,106 +152,64 @@ Upper Freq [MHz]</property>
             <signal name="Changed" handler="OnCombobox2Changed" />
           </widget>
           <packing>
-            <property name="X">67</property>
-            <property name="Y">86</property>
+            <property name="X">55</property>
+            <property name="Y">120</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="entry1">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">●</property>
-          </widget>
-          <packing>
-            <property name="X">235</property>
-            <property name="Y">47</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Entry" id="entry2">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">●</property>
-          </widget>
-          <packing>
-            <property name="X">235</property>
-            <property name="Y">92</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Button" id="button2">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="Type">TextOnly</property>
-            <property name="Label" translatable="yes">Spectrum</property>
-            <property name="UseUnderline">True</property>
-            <signal name="Clicked" handler="OnButton2Clicked" />
-          </widget>
-          <packing>
-            <property name="X">70</property>
-            <property name="Y">300</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.ComboBox" id="combobox4">
+          <widget class="Gtk.ComboBox" id="combobox1">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
-            <property name="Items" translatable="yes">Time [msec]
-Samples [x10^6]
-Total File Size [GB]</property>
+            <property name="Items" translatable="yes" context="yes">Lower Freq [MHz]|Center [MHz]
+Lower Freq [MHz]</property>
             <property name="Active">0</property>
+            <signal name="Changed" handler="OnCombobox1Changed" />
           </widget>
           <packing>
-            <property name="X">67</property>
-            <property name="Y">237</property>
+            <property name="X">55</property>
+            <property name="Y">70</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Label" id="label3">
+          <widget class="Gtk.Label" id="label1">
             <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">Record Limit</property>
+            <property name="LabelProp" translatable="yes">Frequency Specifications</property>
           </widget>
           <packing>
-            <property name="X">53</property>
-            <property name="Y">220</property>
+            <property name="X">55</property>
+            <property name="Y">40</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="combobox3">
-            <property name="MemberName" />
-            <property name="IsTextCombo">True</property>
-            <property name="Items" translatable="yes">Automatic
-Manual</property>
-            <property name="Active">1</property>
-            <signal name="Changed" handler="OnCombobox3Changed" />
-          </widget>
-          <packing>
-            <property name="X">67</property>
-            <property name="Y">158</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Label" id="label2">
-            <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">AGC:</property>
-          </widget>
-          <packing>
-            <property name="X">53</property>
-            <property name="Y">137</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Entry" id="entry4">
+          <widget class="Gtk.RadioButton" id="radiobutton1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">●</property>
+            <property name="Label" translatable="yes">Record</property>
+            <property name="Active">True</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <property name="Group">group1</property>
+            <signal name="Clicked" handler="OnRadiobutton1Clicked" />
           </widget>
           <packing>
-            <property name="X">235</property>
-            <property name="Y">243</property>
+            <property name="X">55</property>
+            <property name="Y">10</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.RadioButton" id="radiobutton2">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">Transmit</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <property name="Group">group1</property>
+          </widget>
+          <packing>
+            <property name="X">280</property>
+            <property name="Y">10</property>
           </packing>
         </child>
         <child>
@@ -168,22 +220,32 @@ Manual</property>
             <property name="InvisibleChar">•</property>
           </widget>
           <packing>
-            <property name="X">235</property>
-            <property name="Y">179</property>
+            <property name="X">250</property>
+            <property name="Y">202</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button3">
+          <widget class="Gtk.Entry" id="entry2">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="Type">TextOnly</property>
-            <property name="Label" translatable="yes">GtkButton</property>
-            <property name="UseUnderline">True</property>
-            <signal name="Clicked" handler="OnButton3Clicked" />
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
           </widget>
           <packing>
-            <property name="X">309</property>
-            <property name="Y">300</property>
+            <property name="X">250</property>
+            <property name="Y">122</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="entry1">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+          </widget>
+          <packing>
+            <property name="X">250</property>
+            <property name="Y">72</property>
           </packing>
         </child>
         <child>
@@ -193,10 +255,37 @@ Manual</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Record</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnButton1Clicked" />
           </widget>
           <packing>
-            <property name="X">192</property>
-            <property name="Y">300</property>
+            <property name="X">180</property>
+            <property name="Y">330</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="button4">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Transmit</property>
+            <property name="UseUnderline">True</property>
+          </widget>
+          <packing>
+            <property name="X">289</property>
+            <property name="Y">330</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="button5">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Stop</property>
+            <property name="UseUnderline">True</property>
+          </widget>
+          <packing>
+            <property name="X">212</property>
+            <property name="Y">455</property>
           </packing>
         </child>
       </widget>

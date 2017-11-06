@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using NLog;
 
 
-
 public partial class MainWindow: Gtk.Window
 {
 	private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -25,6 +24,8 @@ public partial class MainWindow: Gtk.Window
 		combobox3.Active = 0;
 		entry3.Sensitive = false;
 
+		logger.Info ("Start");
+		logger.Debug ("Test debug message");
 
 	}
 
@@ -496,7 +497,7 @@ public partial class MainWindow: Gtk.Window
 					}
 				} catch (Exception ex) 
 				{
-					logger.Error (ex, "Failed to start the specrtum process");
+					logger.Error (ex, "Failed to start spectrum process");
 				}
 			}
 		}

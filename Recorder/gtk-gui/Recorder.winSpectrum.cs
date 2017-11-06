@@ -4,7 +4,21 @@ namespace Recorder
 {
 	public partial class winSpectrum
 	{
+		private global::Gtk.UIManager UIManager;
+		
+		private global::Gtk.Action FileAction;
+		
+		private global::Gtk.Action dialogErrorAction;
+		
+		private global::Gtk.Action floppyAction;
+		
+		private global::Gtk.Action FileSaveAction;
+		
+		private global::Gtk.Action dialogErrorAction1;
+		
 		private global::Gtk.Fixed fixed2;
+		
+		private global::Gtk.MenuBar menubar;
 		
 		private global::Gtk.Image image;
 
@@ -12,6 +26,24 @@ namespace Recorder
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget Recorder.winSpectrum
+			this.UIManager = new global::Gtk.UIManager ();
+			global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
+			this.FileAction = new global::Gtk.Action ("FileAction", global::Mono.Unix.Catalog.GetString ("File"), null, null);
+			this.FileAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("File");
+			w1.Add (this.FileAction, null);
+			this.dialogErrorAction = new global::Gtk.Action ("dialogErrorAction", global::Mono.Unix.Catalog.GetString ("Exit"), null, "gtk-dialog-error");
+			this.dialogErrorAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Exit");
+			w1.Add (this.dialogErrorAction, null);
+			this.floppyAction = new global::Gtk.Action ("floppyAction", null, null, "gtk-floppy");
+			w1.Add (this.floppyAction, null);
+			this.FileSaveAction = new global::Gtk.Action ("FileSaveAction", global::Mono.Unix.Catalog.GetString ("Save"), null, "gtk-floppy");
+			this.FileSaveAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Save");
+			w1.Add (this.FileSaveAction, null);
+			this.dialogErrorAction1 = new global::Gtk.Action ("dialogErrorAction1", global::Mono.Unix.Catalog.GetString ("Exit"), null, "gtk-dialog-error");
+			this.dialogErrorAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("Error");
+			w1.Add (this.dialogErrorAction1, null);
+			this.UIManager.InsertActionGroup (w1, 0);
+			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.Name = "Recorder.winSpectrum";
 			this.Title = global::Mono.Unix.Catalog.GetString ("winSpectrum");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
@@ -20,19 +52,31 @@ namespace Recorder
 			this.fixed2.Name = "fixed2";
 			this.fixed2.HasWindow = false;
 			// Container child fixed2.Gtk.Fixed+FixedChild
+			this.UIManager.AddUiFromString ("<ui><menubar name=\'menubar\'><menu name=\'FileAction\' action=\'FileAction\'><menuitem" +
+			" name=\'FileSaveAction\' action=\'FileSaveAction\'/><separator/><menuitem name=\'dial" +
+			"ogErrorAction1\' action=\'dialogErrorAction1\'/></menu></menubar></ui>");
+			this.menubar = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar")));
+			this.menubar.Name = "menubar";
+			this.fixed2.Add (this.menubar);
+			global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [this.menubar]));
+			w2.X = 5;
+			w2.Y = 5;
+			// Container child fixed2.Gtk.Fixed+FixedChild
 			this.image = new global::Gtk.Image ();
 			this.image.Name = "image";
 			this.fixed2.Add (this.image);
-			global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [this.image]));
-			w1.X = 23;
-			w1.Y = 21;
+			global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [this.image]));
+			w3.X = 1;
+			w3.Y = 32;
 			this.Add (this.fixed2);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 400;
+			this.DefaultWidth = 667;
 			this.DefaultHeight = 300;
 			this.Show ();
+			this.FileSaveAction.Activated += new global::System.EventHandler (this.OnFileSave);
+			this.dialogErrorAction1.Activated += new global::System.EventHandler (this.CloseWindow);
 		}
 	}
 }

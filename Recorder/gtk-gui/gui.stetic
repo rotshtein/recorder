@@ -185,7 +185,6 @@ Lower Freq [MHz]</property>
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Record</property>
-            <property name="Active">True</property>
             <property name="DrawIndicator">True</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
@@ -291,7 +290,39 @@ Lower Freq [MHz]</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="Recorder.winSpectrum" design-size="400 300">
+  <widget class="Gtk.Window" id="Recorder.winSpectrum" design-size="667 300">
+    <action-group name="Default">
+      <action id="FileAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">File</property>
+        <property name="ShortLabel" translatable="yes">File</property>
+      </action>
+      <action id="dialogErrorAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Exit</property>
+        <property name="ShortLabel" translatable="yes">Exit</property>
+        <property name="StockId">gtk-dialog-error</property>
+      </action>
+      <action id="floppyAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-floppy</property>
+      </action>
+      <action id="FileSaveAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Save</property>
+        <property name="ShortLabel" translatable="yes">Save</property>
+        <property name="StockId">gtk-floppy</property>
+        <signal name="Activated" handler="OnFileSave" />
+      </action>
+      <action id="dialogErrorAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Exit</property>
+        <property name="ShortLabel" translatable="yes">Error</property>
+        <property name="StockId">gtk-dialog-error</property>
+        <signal name="Activated" handler="CloseWindow" />
+      </action>
+    </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">winSpectrum</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -300,12 +331,28 @@ Lower Freq [MHz]</property>
         <property name="MemberName" />
         <property name="HasWindow">False</property>
         <child>
+          <widget class="Gtk.MenuBar" id="menubar">
+            <property name="MemberName" />
+            <node name="menubar" type="Menubar">
+              <node type="Menu" action="FileAction">
+                <node type="Menuitem" action="FileSaveAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="dialogErrorAction1" />
+              </node>
+            </node>
+          </widget>
+          <packing>
+            <property name="X">5</property>
+            <property name="Y">5</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.Image" id="image">
             <property name="MemberName" />
           </widget>
           <packing>
-            <property name="X">23</property>
-            <property name="Y">21</property>
+            <property name="X">1</property>
+            <property name="Y">32</property>
           </packing>
         </child>
       </widget>

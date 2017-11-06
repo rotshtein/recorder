@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Configuration;
 using NLog;
+using Gtk;
 
 namespace Recorder
 {
@@ -20,8 +21,17 @@ namespace Recorder
 		{
 			this.Build ();
 			spectru_exe = ConfigurationManager.AppSettings["Spectrum"];
-
 		}
+
+		void OnFileSave(object sender, EventArgs args)
+		{
+		}
+
+		protected void CloseWindow (object sender, EventArgs e)
+		{
+			this.Destroy ();
+		}
+
 
 		public string GetMessurment(double f0, double Rate, double Gain, string Filename="/home/x300/spectrum.dat")
 		{
@@ -120,6 +130,7 @@ namespace Recorder
 				return null;
 			}
 		}
+
 	}
 }
 

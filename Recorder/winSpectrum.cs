@@ -20,6 +20,7 @@ namespace Recorder
 		{
 			this.Build ();
 			spectru_exe = ConfigurationManager.AppSettings["Spectrum"];
+
 		}
 
 		public string GetMessurment(double f0, double Rate, double Gain, string Filename="/home/x300/spectrum.dat")
@@ -49,7 +50,7 @@ namespace Recorder
 				}
 				catch (Exception ex) 
 				{
-					logger.Error (ex, "Fail to run the spectrum process");
+					logger.Error (ex, "Failed to start spectrum process");
 				}
 				return null;
 			}
@@ -115,7 +116,7 @@ namespace Recorder
 			}
 			catch (Exception ex) 
 			{
-				logger.Error (ex, "Fail to read the spectrum data from file. Filename:" + Filename);
+				logger.Error (ex, "Failed to read spectrum data from file. Filename=" + Filename);
 				return null;
 			}
 		}

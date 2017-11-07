@@ -70,6 +70,12 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\green-led.png">
+      <LogicalName>green-led.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\red-led.png">
+      <LogicalName>red-led.png</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -84,11 +90,5 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\app.config" />
-    <None Include="Properties\green-led.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\red-led.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

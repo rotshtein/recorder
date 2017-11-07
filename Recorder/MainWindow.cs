@@ -588,7 +588,8 @@ public partial class MainWindow: Gtk.Window
 		if (CheckConnectivity () != _connectionStatus) 
 		{
 			_connectionStatus = !_connectionStatus;
-			Pixbuf led = _connectionStatus ? new Gdk.Pixbuf ("green-led.png") : new Gdk.Pixbuf ("red-led.png");
+            Pixbuf led = _connectionStatus ? new Gdk.Pixbuf (System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("green-led.png")) : 
+                new Gdk.Pixbuf (System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("red-led.png"));
 			imgConnectivityLed.Pixbuf = led;
 			imgConnectivityLed.Show ();
 		}

@@ -28,13 +28,12 @@
           <placeholder />
         </child>
         <child>
-          <widget class="Gtk.Button" id="button2">
+          <widget class="Gtk.Button" id="btnSpectrum">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Spectrum</property>
             <property name="UseUnderline">True</property>
-            <signal name="Clicked" handler="OnButton2Clicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -42,7 +41,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="combobox4">
+          <widget class="Gtk.ComboBox" id="cmbRecordingSize">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
             <property name="Items" translatable="yes">Time [msec]
@@ -56,13 +55,12 @@ File Size [GB]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button3">
+          <widget class="Gtk.Button" id="btnFile">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Specify File</property>
             <property name="UseUnderline">True</property>
-            <signal name="Clicked" handler="OnButton3Clicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -70,7 +68,7 @@ File Size [GB]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="entry5">
+          <widget class="Gtk.Entry" id="txtFilename">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
@@ -83,7 +81,7 @@ File Size [GB]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.CheckButton" id="checkbutton1">
+          <widget class="Gtk.CheckButton" id="chkLoop">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Loop</property>
@@ -97,7 +95,7 @@ File Size [GB]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="entry4">
+          <widget class="Gtk.Entry" id="txtRecordingSize">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
@@ -119,13 +117,12 @@ File Size [GB]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="combobox3">
+          <widget class="Gtk.ComboBox" id="cmbAGC">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
             <property name="Items" translatable="yes">Automatic
 Manual</property>
             <property name="Active">0</property>
-            <signal name="Changed" handler="OnCombobox3Changed" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -143,13 +140,12 @@ Manual</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="combobox2">
+          <widget class="Gtk.ComboBox" id="cmbBandwidth">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
             <property name="Items" translatable="yes">Bandwidth [MHz]
 Upper Freq [MHz]</property>
             <property name="Active">0</property>
-            <signal name="Changed" handler="OnCombobox2Changed" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -157,13 +153,12 @@ Upper Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="combobox1">
+          <widget class="Gtk.ComboBox" id="cmbFrequencyMode">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
             <property name="Items" translatable="yes" context="yes">Lower Freq [MHz]|Center [MHz]
 Lower Freq [MHz]</property>
             <property name="Active">0</property>
-            <signal name="Changed" handler="OnCombobox1Changed" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -181,10 +176,11 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.RadioButton" id="radiobutton1">
+          <widget class="Gtk.RadioButton" id="radRecord">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Record</property>
+            <property name="Active">True</property>
             <property name="DrawIndicator">True</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
@@ -197,7 +193,7 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.RadioButton" id="radiobutton2">
+          <widget class="Gtk.RadioButton" id="radTransmit">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Transmit</property>
@@ -212,7 +208,7 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="entry3">
+          <widget class="Gtk.Entry" id="txtAGC">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
@@ -224,7 +220,7 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="entry2">
+          <widget class="Gtk.Entry" id="txtBandwidth">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
@@ -236,7 +232,7 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="entry1">
+          <widget class="Gtk.Entry" id="txtFrequency">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
@@ -248,13 +244,12 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button1">
+          <widget class="Gtk.Button" id="btnRecord">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Record</property>
             <property name="UseUnderline">True</property>
-            <signal name="Clicked" handler="OnButton1Clicked" />
           </widget>
           <packing>
             <property name="X">180</property>
@@ -262,7 +257,7 @@ Lower Freq [MHz]</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button4">
+          <widget class="Gtk.Button" id="btnTransmit">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
@@ -285,6 +280,15 @@ Lower Freq [MHz]</property>
           <packing>
             <property name="X">212</property>
             <property name="Y">455</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Image" id="imgConnectivityLed">
+            <property name="MemberName" />
+          </widget>
+          <packing>
+            <property name="X">434</property>
+            <property name="Y">12</property>
           </packing>
         </child>
       </widget>

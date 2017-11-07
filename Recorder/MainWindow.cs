@@ -19,7 +19,8 @@ public partial class MainWindow: Gtk.Window
 	public double UsefulBW;
 	string FileName;
 	bool _connectionStatus = false;
-
+	bool RecordMode = true;
+	string _device_ip;
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
@@ -28,13 +29,45 @@ public partial class MainWindow: Gtk.Window
 		//filechooserbutton1.Action = FileChooserAction.Save;
 		cmbAGC.Active = 0;
 		txtAGC.Sensitive = false;
-
+		_device_ip = ConfigurationManager.AppSettings["device_ip"];
+		if (string.IsNullOrEmpty (_device_ip))
+		{
+			_device_ip = "127.0.0.1";
+		}
+		lblDeviceId.Text = _device_ip;
 		logger.Info ("Start");
 		logger.Debug ("Test debug message");
-		Pixbuf led = new Gdk.Pixbuf ("red-led.png");
-		imgConnectivityLed.Pixbuf = led;
-		Timer t = new Timer (TimerCheckConnectivity, 5, 0, 20000);
+		CheckConnectivity();
+		Timer t = new Timer (TimerCheckConnectivity, 5, 0, 2500);
+	}
 
+	public void SwitchtoTx()
+	{
+		cmbFrequencyMode.Active = 0;
+		cmbAGC.Active = 1;
+		cmbRecordingSize.Sensitive = false;
+		btnRecord.Sensitive = false;
+		btnTransmit.Sensitive = true;
+		btnSpectrum.Sensitive = false;
+		chkLoop.Sensitive = true;
+		label2.Text = "Tx Gain";
+		txtFilename.Text = "";
+		FileName = "";
+	}
+
+	public void SwitchtoRx()
+	{
+		cmbFrequencyMode.Active = 0;
+		cmbAGC.Active = 0;
+		cmbRecordingSize.Sensitive = true;
+		btnSpectrum.Sensitive = true;
+		btnRecord.Sensitive = true;
+		btnTransmit.Sensitive = false;
+		btnSpectrum.Sensitive = true;
+		chkLoop.Sensitive = false;
+		label2.Text = "AGC";
+		txtFilename.Text = "";
+		FileName = "";
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -43,22 +76,22 @@ public partial class MainWindow: Gtk.Window
 		a.RetVal = true;
 	}
 
-	protected void OnFrequencyModeChanged (object sender, EventArgs e)
+	protected void OnFrequencyModeChanged(object sender, EventArgs e)
 	{
-		if (cmbFrequencyMode.ActiveText == "Center [MHz]") 
+		if (cmbFrequencyMode.ActiveText == "Center [MHz]")
 		{
-			cmbBandwidth.Active = 0;
-		} 
-		else 
-		{
-			cmbBandwidth.Active = 1;
+			lblBandwith.Text = "Bandwidth";
 		}
-		logger.Trace ("Change Center Frequency");
+		else
+		{
+			lblBandwith.Text = "High Frequency";
+		}
+		logger.Trace("Change Center Frequency");
 	}
 
 	protected void OncmbBandwidthChanged (object sender, EventArgs e)
 	{
-
+	/*
 		if (cmbBandwidth.Active == 0) {
 			cmbFrequencyMode.Active = 0;
 		} else {
@@ -66,14 +99,20 @@ public partial class MainWindow: Gtk.Window
 			cmbFrequencyMode.Active = 1;
 
 		}
-		logger.Trace ("Change Center Frequency");
+		logger.Trace ("Change Center Frequency");*/
 	}
 
-	protected void OncmbAGChanged (object sender, EventArgs e)
+	protected void OncmbAGChanged(object sender, EventArgs e)
 	{
-		if (cmbAGC.Active == 0) {
+		if (!RecordMode)
+		{
+			cmbAGC.Active = 1;
+		}
+		if (cmbAGC.Active == 0) 
+		{
 			txtAGC.Sensitive = false;
-		} else {
+		} else 
+		{
 			txtAGC.Sensitive = true;
 		}
 		logger.Trace ("Change Center Frequency");
@@ -169,47 +208,68 @@ public partial class MainWindow: Gtk.Window
 	{
 
 		FileName = "";
-		
-		Gtk.FileChooserDialog filechooser =
-			new Gtk.FileChooserDialog("Choose the file to save",
-				this,
-				FileChooserAction.Save,
-				"Cancel", ResponseType.Cancel,
-				"Save", ResponseType.Accept);
-
-		FileName = "";
-		filechooser.Show();
-		if (filechooser.Run() == (int)ResponseType.Accept)
+		if (RecordMode == true)
 		{
-			FileName = filechooser.Filename;
-		}
+			Gtk.FileChooserDialog filechooser =
+				new Gtk.FileChooserDialog("Choose the file to save",
+					this,
+					FileChooserAction.Save,
+					"Cancel", ResponseType.Cancel,
+					"Save", ResponseType.Accept);
 
-		filechooser.Destroy();
-
-
-		string FileOnly = System.IO.Path.GetFileName(FileName);
-		string Path = System.IO.Path.GetDirectoryName(FileName);
-		string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
-
-
-		string[] FileList = System.IO.Directory.GetFiles(Path, FileWithoutExt + "*", System.IO.SearchOption.TopDirectoryOnly);
-
-		bool Fexist = false;
-		if (FileList.Length > 0)
-			Fexist = true;
-
-		if (Fexist)
-		{
-			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Question, ButtonsType.YesNo, "File Exists. Overwrite?");
-			msdSame.Title = "File Exists";
-			ResponseType tp = (Gtk.ResponseType)msdSame.Run(); 
-				
-			msdSame.Destroy();
-
-			if (tp.ToString() == "No")
+			FileName = "";
+			filechooser.Show();
+			if (filechooser.Run() == (int)ResponseType.Accept)
 			{
-				return;
-			}	
+				FileName = filechooser.Filename;
+			}
+		
+			filechooser.Destroy();
+
+
+			string FileOnly = System.IO.Path.GetFileName(FileName);
+			string Path = System.IO.Path.GetDirectoryName(FileName);
+			string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
+
+
+			string[] FileList = System.IO.Directory.GetFiles(Path, FileWithoutExt + "*", System.IO.SearchOption.TopDirectoryOnly);
+
+			bool Fexist = false;
+			if (FileList.Length > 0)
+				Fexist = true;
+
+			if (Fexist)
+			{
+				MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Question, ButtonsType.YesNo, "File Exists. Overwrite?");
+				msdSame.Title = "File Exists";
+				ResponseType tp = (Gtk.ResponseType)msdSame.Run(); 
+				
+				msdSame.Destroy();
+
+				if (tp.ToString() == "No")
+				{
+					return;
+				}	
+			}
+
+		}
+		else
+		{
+			Gtk.FileChooserDialog filechooser =
+				new Gtk.FileChooserDialog ("Choose the file to transmit",
+					this,
+					FileChooserAction.Open,
+					"Cancel", ResponseType.Cancel,
+					"Open", ResponseType.Accept);
+
+			FileName = "";
+			filechooser.Show ();
+			if (filechooser.Run () == (int)ResponseType.Accept) {
+				FileName = filechooser.Filename;
+			}
+
+			filechooser.Destroy ();
+
 		}
 		txtFilename.Text = FileName;
 	}
@@ -510,17 +570,18 @@ public partial class MainWindow: Gtk.Window
 
 	}
 
-	protected void OnRadiobutton1Clicked (object sender, EventArgs e)
+	protected void OnRecoredModeClicked (object sender, EventArgs e)
 	{
-		int rb = 0;
-		if (radRecord.Active) {
-			rb = 1;
-		}
-		else {
-			rb = 2;
-		}
-
+		RecordMode = radRecord.Active;
+		SwitchtoRx();
 	}
+
+	protected void OnTransmitModeClicked(object sender, EventArgs e)
+	{
+		RecordMode = false;;
+		SwitchtoTx();
+	}
+
 
 	private void TimerCheckConnectivity(object o) 
 	{
@@ -534,7 +595,12 @@ public partial class MainWindow: Gtk.Window
 	}
 
 
-	private bool CheckConnectivity(string host="127.0.0.1")
+	private bool CheckConnectivity()
+	{
+		return CheckConnectivity(_device_ip);
+	}
+
+	private bool CheckConnectivity(string host)
 	{
 		try 
 		{ 
@@ -550,5 +616,12 @@ public partial class MainWindow: Gtk.Window
 			return false;
 		}
 	}
+
+
+	protected void OnRecordTransmitChanged(object sender, EventArgs e)
+	{
+		RecordMode = radRecord.Active;
+	}
+
 
 }

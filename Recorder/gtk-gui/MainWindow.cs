@@ -23,8 +23,6 @@ public partial class MainWindow
 	
 	private global::Gtk.Label label2;
 	
-	private global::Gtk.ComboBox cmbBandwidth;
-	
 	private global::Gtk.ComboBox cmbFrequencyMode;
 	
 	private global::Gtk.Label label1;
@@ -46,6 +44,10 @@ public partial class MainWindow
 	private global::Gtk.Button button5;
 	
 	private global::Gtk.Image imgConnectivityLed;
+	
+	private global::Gtk.Label lblBandwith;
+	
+	private global::Gtk.Label lblDeviceId;
 
 	protected virtual void Build ()
 	{
@@ -154,33 +156,23 @@ public partial class MainWindow
 		w9.X = 55;
 		w9.Y = 170;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.cmbBandwidth = global::Gtk.ComboBox.NewText ();
-		this.cmbBandwidth.AppendText (global::Mono.Unix.Catalog.GetString ("Bandwidth [MHz]"));
-		this.cmbBandwidth.AppendText (global::Mono.Unix.Catalog.GetString ("Upper Freq [MHz]"));
-		this.cmbBandwidth.Name = "cmbBandwidth";
-		this.cmbBandwidth.Active = 0;
-		this.fixed1.Add (this.cmbBandwidth);
-		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.cmbBandwidth]));
-		w10.X = 55;
-		w10.Y = 120;
-		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.cmbFrequencyMode = global::Gtk.ComboBox.NewText ();
 		this.cmbFrequencyMode.AppendText (global::Mono.Unix.Catalog.GetString ("Center [MHz]"));
 		this.cmbFrequencyMode.AppendText (global::Mono.Unix.Catalog.GetString ("Lower Freq [MHz]"));
 		this.cmbFrequencyMode.Name = "cmbFrequencyMode";
 		this.cmbFrequencyMode.Active = 0;
 		this.fixed1.Add (this.cmbFrequencyMode);
-		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.cmbFrequencyMode]));
-		w11.X = 55;
-		w11.Y = 70;
+		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.cmbFrequencyMode]));
+		w10.X = 55;
+		w10.Y = 70;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.label1 = new global::Gtk.Label ();
 		this.label1.Name = "label1";
 		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Frequency Specifications");
 		this.fixed1.Add (this.label1);
-		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label1]));
-		w12.X = 55;
-		w12.Y = 40;
+		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label1]));
+		w11.X = 55;
+		w11.Y = 40;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.radRecord = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Record"));
 		this.radRecord.CanFocus = true;
@@ -189,9 +181,9 @@ public partial class MainWindow
 		this.radRecord.UseUnderline = true;
 		this.radRecord.Group = new global::GLib.SList (global::System.IntPtr.Zero);
 		this.fixed1.Add (this.radRecord);
-		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radRecord]));
-		w13.X = 55;
-		w13.Y = 10;
+		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radRecord]));
+		w12.X = 55;
+		w12.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.radTransmit = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Transmit"));
 		this.radTransmit.CanFocus = true;
@@ -200,9 +192,9 @@ public partial class MainWindow
 		this.radTransmit.UseUnderline = true;
 		this.radTransmit.Group = this.radRecord.Group;
 		this.fixed1.Add (this.radTransmit);
-		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radTransmit]));
-		w14.X = 280;
-		w14.Y = 10;
+		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radTransmit]));
+		w13.X = 280;
+		w13.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.txtAGC = new global::Gtk.Entry ();
 		this.txtAGC.CanFocus = true;
@@ -210,9 +202,9 @@ public partial class MainWindow
 		this.txtAGC.IsEditable = true;
 		this.txtAGC.InvisibleChar = '•';
 		this.fixed1.Add (this.txtAGC);
-		global::Gtk.Fixed.FixedChild w15 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.txtAGC]));
-		w15.X = 250;
-		w15.Y = 202;
+		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.txtAGC]));
+		w14.X = 250;
+		w14.Y = 202;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.txtBandwidth = new global::Gtk.Entry ();
 		this.txtBandwidth.CanFocus = true;
@@ -220,9 +212,9 @@ public partial class MainWindow
 		this.txtBandwidth.IsEditable = true;
 		this.txtBandwidth.InvisibleChar = '●';
 		this.fixed1.Add (this.txtBandwidth);
-		global::Gtk.Fixed.FixedChild w16 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.txtBandwidth]));
-		w16.X = 250;
-		w16.Y = 122;
+		global::Gtk.Fixed.FixedChild w15 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.txtBandwidth]));
+		w15.X = 250;
+		w15.Y = 122;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.txtFrequency = new global::Gtk.Entry ();
 		this.txtFrequency.CanFocus = true;
@@ -230,9 +222,9 @@ public partial class MainWindow
 		this.txtFrequency.IsEditable = true;
 		this.txtFrequency.InvisibleChar = '●';
 		this.fixed1.Add (this.txtFrequency);
-		global::Gtk.Fixed.FixedChild w17 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.txtFrequency]));
-		w17.X = 250;
-		w17.Y = 72;
+		global::Gtk.Fixed.FixedChild w16 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.txtFrequency]));
+		w16.X = 250;
+		w16.Y = 72;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.btnRecord = new global::Gtk.Button ();
 		this.btnRecord.CanFocus = true;
@@ -240,9 +232,9 @@ public partial class MainWindow
 		this.btnRecord.UseUnderline = true;
 		this.btnRecord.Label = global::Mono.Unix.Catalog.GetString ("Record");
 		this.fixed1.Add (this.btnRecord);
-		global::Gtk.Fixed.FixedChild w18 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.btnRecord]));
-		w18.X = 180;
-		w18.Y = 330;
+		global::Gtk.Fixed.FixedChild w17 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.btnRecord]));
+		w17.X = 180;
+		w17.Y = 330;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.btnTransmit = new global::Gtk.Button ();
 		this.btnTransmit.CanFocus = true;
@@ -250,9 +242,9 @@ public partial class MainWindow
 		this.btnTransmit.UseUnderline = true;
 		this.btnTransmit.Label = global::Mono.Unix.Catalog.GetString ("Transmit");
 		this.fixed1.Add (this.btnTransmit);
-		global::Gtk.Fixed.FixedChild w19 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.btnTransmit]));
-		w19.X = 289;
-		w19.Y = 330;
+		global::Gtk.Fixed.FixedChild w18 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.btnTransmit]));
+		w18.X = 289;
+		w18.Y = 330;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.button5 = new global::Gtk.Button ();
 		this.button5.CanFocus = true;
@@ -260,16 +252,38 @@ public partial class MainWindow
 		this.button5.UseUnderline = true;
 		this.button5.Label = global::Mono.Unix.Catalog.GetString ("Stop");
 		this.fixed1.Add (this.button5);
-		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button5]));
-		w20.X = 212;
-		w20.Y = 455;
+		global::Gtk.Fixed.FixedChild w19 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button5]));
+		w19.X = 212;
+		w19.Y = 455;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.imgConnectivityLed = new global::Gtk.Image ();
 		this.imgConnectivityLed.Name = "imgConnectivityLed";
 		this.fixed1.Add (this.imgConnectivityLed);
-		global::Gtk.Fixed.FixedChild w21 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.imgConnectivityLed]));
-		w21.X = 434;
-		w21.Y = 12;
+		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.imgConnectivityLed]));
+		w20.X = 434;
+		w20.Y = 12;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.lblBandwith = new global::Gtk.Label ();
+		this.lblBandwith.Name = "lblBandwith";
+		this.lblBandwith.LabelProp = global::Mono.Unix.Catalog.GetString ("Bandwidth");
+		this.lblBandwith.UseMarkup = true;
+		this.lblBandwith.Justify = ((global::Gtk.Justification)(1));
+		this.lblBandwith.Ellipsize = ((global::Pango.EllipsizeMode)(1));
+		this.lblBandwith.WidthChars = 19;
+		this.lblBandwith.Angle = 0.4D;
+		this.fixed1.Add (this.lblBandwith);
+		global::Gtk.Fixed.FixedChild w21 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.lblBandwith]));
+		w21.X = 55;
+		w21.Y = 122;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.lblDeviceId = new global::Gtk.Label ();
+		this.lblDeviceId.Name = "lblDeviceId";
+		this.lblDeviceId.LabelProp = global::Mono.Unix.Catalog.GetString ("127.000.000.001");
+		this.lblDeviceId.Justify = ((global::Gtk.Justification)(2));
+		this.fixed1.Add (this.lblDeviceId);
+		global::Gtk.Fixed.FixedChild w22 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.lblDeviceId]));
+		w22.X = 423;
+		w22.Y = 38;
 		this.Add (this.fixed1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -278,9 +292,9 @@ public partial class MainWindow
 		this.DefaultHeight = 1000;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-		this.btnSpectrum.Clicked += new global::System.EventHandler (this.OnButton2Clicked);
-		this.btnFile.Clicked += new global::System.EventHandler (this.OnButton3Clicked);
-		this.radRecord.Clicked += new global::System.EventHandler (this.OnRadiobutton1Clicked);
-		this.btnRecord.Clicked += new global::System.EventHandler (this.OnButton1Clicked);
+		this.cmbFrequencyMode.Changed += new global::System.EventHandler (this.OnFrequencyModeChanged);
+		this.radRecord.Clicked += new global::System.EventHandler (this.OnRecoredModeClicked);
+		this.radTransmit.GroupChanged += new global::System.EventHandler (this.OnRecordTransmitChanged);
+		this.radTransmit.Clicked += new global::System.EventHandler (this.OnTransmitModeClicked);
 	}
 }

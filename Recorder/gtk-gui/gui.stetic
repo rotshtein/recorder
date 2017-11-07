@@ -140,25 +140,13 @@ Manual</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ComboBox" id="cmbBandwidth">
-            <property name="MemberName" />
-            <property name="IsTextCombo">True</property>
-            <property name="Items" translatable="yes">Bandwidth [MHz]
-Upper Freq [MHz]</property>
-            <property name="Active">0</property>
-          </widget>
-          <packing>
-            <property name="X">55</property>
-            <property name="Y">120</property>
-          </packing>
-        </child>
-        <child>
           <widget class="Gtk.ComboBox" id="cmbFrequencyMode">
             <property name="MemberName" />
             <property name="IsTextCombo">True</property>
             <property name="Items" translatable="yes" context="yes">Lower Freq [MHz]|Center [MHz]
 Lower Freq [MHz]</property>
             <property name="Active">0</property>
+            <signal name="Changed" handler="OnFrequencyModeChanged" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -185,7 +173,7 @@ Lower Freq [MHz]</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
             <property name="Group">group1</property>
-            <signal name="Clicked" handler="OnRadiobutton1Clicked" />
+            <signal name="Clicked" handler="OnRecoredModeClicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -201,6 +189,8 @@ Lower Freq [MHz]</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
             <property name="Group">group1</property>
+            <signal name="GroupChanged" handler="OnRecordTransmitChanged" />
+            <signal name="Clicked" handler="OnTransmitModeClicked" />
           </widget>
           <packing>
             <property name="X">280</property>
@@ -289,6 +279,32 @@ Lower Freq [MHz]</property>
           <packing>
             <property name="X">434</property>
             <property name="Y">12</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="lblBandwith">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Bandwidth</property>
+            <property name="UseMarkup">True</property>
+            <property name="Justify">Right</property>
+            <property name="Ellipsize">Start</property>
+            <property name="WidthChars">19</property>
+            <property name="Angle">0.4</property>
+          </widget>
+          <packing>
+            <property name="X">55</property>
+            <property name="Y">122</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="lblDeviceId">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">127.000.000.001</property>
+            <property name="Justify">Center</property>
+          </widget>
+          <packing>
+            <property name="X">423</property>
+            <property name="Y">38</property>
           </packing>
         </child>
       </widget>

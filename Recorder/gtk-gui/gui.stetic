@@ -6,7 +6,7 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../bin/Debug/Recorder.exe" internal="true" />
+    <widget-library name="../bin/Release/Recorder.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="3041 1000">
     <property name="MemberName" />
@@ -34,6 +34,7 @@
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Spectrum</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnbtnSpectrumClicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -168,12 +169,10 @@ Lower Freq [MHz]</property>
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Record</property>
-            <property name="Active">True</property>
             <property name="DrawIndicator">True</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
             <property name="Group">group1</property>
-            <signal name="Clicked" handler="OnRecoredModeClicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -189,8 +188,6 @@ Lower Freq [MHz]</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
             <property name="Group">group1</property>
-            <signal name="GroupChanged" handler="OnRecordTransmitChanged" />
-            <signal name="Clicked" handler="OnTransmitModeClicked" />
           </widget>
           <packing>
             <property name="X">280</property>
@@ -240,6 +237,7 @@ Lower Freq [MHz]</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Record</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnbtnRecordClicked" />
           </widget>
           <packing>
             <property name="X">180</property>

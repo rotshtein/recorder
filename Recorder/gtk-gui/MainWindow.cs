@@ -293,9 +293,8 @@ public partial class MainWindow
 		this.DefaultHeight = 1000;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.btnSpectrum.Clicked += new global::System.EventHandler (this.OnbtnSpectrumClicked);
 		this.cmbFrequencyMode.Changed += new global::System.EventHandler (this.OnFrequencyModeChanged);
-		this.radRecord.Clicked += new global::System.EventHandler (this.OnRecoredModeClicked);
-		this.radTransmit.GroupChanged += new global::System.EventHandler (this.OnRecordTransmitChanged);
-		this.radTransmit.Clicked += new global::System.EventHandler (this.OnTransmitModeClicked);
+		this.btnRecord.Clicked += new global::System.EventHandler (this.OnbtnRecordClicked);
 	}
 }

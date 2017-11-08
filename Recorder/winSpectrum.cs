@@ -15,9 +15,14 @@ namespace Recorder
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 
-		string spectru_exe = null;
-		public winSpectrum () :
-		base (Gtk.WindowType.Toplevel)
+        double _central_frequncy = 0;
+        double _rate = 0;
+        string spectru_exe = null;
+        MemoryStream bitmapStream = new MemoryStream();
+        Process _spectrumProcess = null;
+
+
+		public winSpectrum () : base (Gtk.WindowType.Toplevel)
 		{
 			this.Build ();
 			spectru_exe = ConfigurationManager.AppSettings["Spectrum"];
@@ -33,61 +38,76 @@ namespace Recorder
 		}
 
 
-		public string GetMessurment(double f0, double Rate, double Gain, string Filename="/home/x300/spectrum.dat")
-		{
-			if (!string.IsNullOrEmpty (spectru_exe) && File.Exists (spectru_exe)) 
-			{
-				Process p = new Process ();
-				p.StartInfo.UseShellExecute = false;
-				p.StartInfo.RedirectStandardOutput = true;
-				p.StartInfo.RedirectStandardError = true;
-				p.StartInfo.FileName = spectru_exe;
-				p.StartInfo.Arguments = "--mode spec --freq " + f0.ToString() + " --rate " + Rate.ToString() + " --file " + Filename;
-				try
-				{
-					if (p.Start ()) 
-					{
-						string output = p.StandardOutput.ReadToEnd ();
-						string err = p.StandardError.ReadToEnd ();
-						while (!p.HasExited) 
-						{
-							output = p.StandardOutput.ReadToEnd ();	
-						}
-						//p.WaitForExit (1000 * 60);
-						string error = p.StandardError.ReadToEnd ();	
-						return Filename;
-					}
-				}
-				catch (Exception ex) 
-				{
-					logger.Error (ex, "Failed to start spectrum process");
-				}
-				return null;
-			}
-			return null;
-		}
+		public string GetMessurment(double f0, double Rate, double Gain, string Filename = "/home/x300/spectrum.dat")
+        {
+            if (!string.IsNullOrEmpty(spectru_exe) && File.Exists(spectru_exe))
+            {
+                try
+                {
+                    _central_frequncy = f0;
+                    _rate = Rate;
+
+                    _spectrumProcess = new Process();
+                    _spectrumProcess.StartInfo.UseShellExecute = false;
+                    _spectrumProcess.StartInfo.RedirectStandardOutput = true;
+                    _spectrumProcess.StartInfo.RedirectStandardError = true;
+                    _spectrumProcess.StartInfo.FileName = spectru_exe;
+                    _spectrumProcess.StartInfo.Arguments = "--mode spec --freq " + f0.ToString() + " --rate " + Rate.ToString() + " --file " + Filename;
+                    _spectrumProcess.Start();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Failed to start spectrum process");
+                    return null;
+                }
+                return Filename;
+            }
+            return null;
+        }
 
 		public void ShowSpectrum(string Filename)
 		{
+            try
+            {
+                while (!_spectrumProcess.HasExited)
+                {
+
+
+                }
+                string output = _spectrumProcess.StandardOutput.ReadToEnd ();
+                string err = _spectrumProcess.StandardError.ReadToEnd ();
+
+                if (!string.IsNullOrEmpty(output))
+                {
+                    logger.Info("Get Spectrum Message:" + output);
+                }
+
+                if (!string.IsNullOrEmpty(output))
+                {
+                    logger.Error("Get Spectrum Error Message:" + err);
+                }
+            }
+            catch (Exception ex) 
+            {
+                logger.Error (ex, "Failed to get spectrum results");
+                return;
+            }
+
+            Tuple<float[], float[]> Data = ReadFile(Filename);
+            if (Data == null)
+                return;
+
 			LinePlot lp = new LinePlot ();
 			PointPlot pp = new PointPlot ();
-
-
-			//throw new NotImplementedException ();
-
-			NPlot.Bitmap.PlotSurface2D npSurface = new NPlot.Bitmap.PlotSurface2D(1000,1000);
-			//NPlot.Windows.PlotSurface2D npSurface = new NPlot.Windows.PlotSurface2D();
-			Tuple<float[], float[]> Data = ReadFile(Filename);
-			if (Data == null)
-				return;
+            NPlot.Bitmap.PlotSurface2D npSurface = new NPlot.Bitmap.PlotSurface2D(1000 ,1000);
 			
 			lp.AbscissaData = Data.Item1;
 			lp.DataSource = Data.Item2;
 			lp.Color =  System.Drawing.Color.Green;
 			npSurface.Add (lp);
-			npSurface.XAxis1.Label = "X-Axis";
-			npSurface.YAxis1.Label = "Y-Axis";
-			npSurface.Title = "Demo1";
+			npSurface.XAxis1.Label = "Frequncy [Hz]";
+			npSurface.YAxis1.Label = "Power [db]";
+			npSurface.Title = "Central Frequncy = " + (_central_frequncy / 1e6).ToString() + " MHz - Bandwidth = " + (_rate/2/1e6).ToString() + " MHz";
 			npSurface.BackColor = System.Drawing.Color.White;
 
 			npSurface.Refresh ();
@@ -112,8 +132,6 @@ namespace Recorder
 		{
 			try
 			{
-				;
-
 				BinaryReader br = new BinaryReader (File.OpenRead (Filename));
 				List<float> x = new List<float>();
 				List<float> y = new List<float>();

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using NLog;
 using System.Net.NetworkInformation;
 using Gdk;
+using System.Threading.Tasks;
 
 
 
@@ -89,20 +90,7 @@ public partial class MainWindow: Gtk.Window
 		logger.Trace("Change Center Frequency");
 	}
 
-	protected void OncmbBandwidthChanged (object sender, EventArgs e)
-	{
-	/*
-		if (cmbBandwidth.Active == 0) {
-			cmbFrequencyMode.Active = 0;
-		} else {
-
-			cmbFrequencyMode.Active = 1;
-
-		}
-		logger.Trace ("Change Center Frequency");*/
-	}
-
-	protected void OncmbAGChanged(object sender, EventArgs e)
+    protected void OncmbAGChanged(object sender, EventArgs e)
 	{
 		if (!RecordMode)
 		{
@@ -146,12 +134,14 @@ public partial class MainWindow: Gtk.Window
 
 		if (!Error) {
 
-			if ((CentralFreq < 950) || (CentralFreq > 2150)) {
+			if ((CentralFreq < 950) || (CentralFreq > 2150)) 
+            {
 				Error = true;
 			}
 		}
 
-		if (Error) {
+		if (Error) 
+        {
 		
 			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Central Frequency should be specified in MHz, in the range 950-2150");
 			msdSame.Title="Error";
@@ -166,8 +156,8 @@ public partial class MainWindow: Gtk.Window
 		double Gain = -1; //AGC
 		Error = false;
 
-		if (cmbAGC.Active == 1) {
-
+		if (cmbAGC.Active == 1) 
+        {
 			//Manual
 			string sGain = txtAGC.Text;
 			try
@@ -201,7 +191,6 @@ public partial class MainWindow: Gtk.Window
 		Recorder.winSpectrum spectrum = new Recorder.winSpectrum ();
 		string Filename = spectrum.GetMessurment (CentralFreq, Rate, Gain, "/home/x300/spectrum.dat");
 		spectrum.ShowSpectrum (Filename);
-
 	}
 
 	protected void OnbtnFileClicked(object sender, EventArgs e)
@@ -274,282 +263,275 @@ public partial class MainWindow: Gtk.Window
 		txtFilename.Text = FileName;
 	}
 
-	protected void OnbtnRecordClicked (object sender, EventArgs e)
-	{
-		string sVal1 = txtFrequency.Text;
-		bool Error1 = false;
-		double Val1 = 0;
-		try {
+	protected void OnbtnRecordClicked(object sender, EventArgs e)
+    {
+        string sVal1 = txtFrequency.Text;
+        bool Error1 = false;
+        double Val1 = 0;
+        try
+        {
+            Val1 = Convert.ToDouble(sVal1);
+        }
+        catch
+        {
+            Error1 = true;
+        }
 
-			Val1 = Convert.ToDouble (sVal1);
-		} catch {
-			Error1 = true;
-		}
+        string sVal2 = txtBandwidth.Text;
+        bool Error2 = false;
+        double Val2 = 0;
+        try
+        {
+            Val2 = Convert.ToDouble(sVal2);
+        }
+        catch
+        {
+            Error2 = true;
+        }
 
+        double CentralFreq = 0.0, RecBW = 0.0;
+        double LowFreq = 0.0, HighFreq = 0.0;
 
-		string sVal2 = txtBandwidth.Text;
-		bool Error2 = false;
-		double Val2 = 0;
-		try {
+        if (cmbFrequencyMode.Active == 0)
+        {
+            //Center, BW
+            if (!Error1)
+            {
+                if ((Val1 < 950) || (Val1 > 2150))
+                {
+                    Error1 = true;
+                }
+            }
 
-			Val2 = Convert.ToDouble (sVal2);
-		} catch {
-			Error2 = true;
-		}
+            if (Error1)
+            {
+                MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Central Frequency should be specified in MHz, in the range 950-2150");
+                msdSame.Title = "Error";
+                ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+                msdSame.Destroy();
+                return;
+            }
+            CentralFreq = Val1 * 1e6;
 
-		double CentralFreq = 0.0, RecBW = 0.0;
-		double LowFreq = 0.0, HighFreq = 0.0;
+            if (!Error2)
+            {
+                RecBW = Val2 * 1e6;
 
-		if (cmbFrequencyMode.Active == 0) {
+                LowFreq = CentralFreq - 0.5 * RecBW;
+                HighFreq = CentralFreq + 0.5 * RecBW;
 
-
-
-			//Center, BW
-
-
-
-			if (!Error1) {
-
-				if ((Val1 < 950) || (Val1 > 2150)) {
-					Error1 = true;
-				}
-			}
-
-			if (Error1) {
-
-				MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Central Frequency should be specified in MHz, in the range 950-2150");
-				msdSame.Title = "Error";
-				ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-				msdSame.Destroy ();
-				return;
-
-
-			}
-			CentralFreq = Val1 * 1e6;
-
-			if (!Error2) {
-
-				RecBW = Val2 * 1e6;
-
-				LowFreq = CentralFreq - 0.5 * RecBW;
-				HighFreq = CentralFreq + 0.5 * RecBW;
-
-				if ((LowFreq < 950e6) || (HighFreq > 2150e6)) {
-					Error2 = true;
-				}
-
-			}
+                if ((LowFreq < 950e6) || (HighFreq > 2150e6))
+                {
+                    Error2 = true;
+                }
+            }
 
 
-			if (Error2) {
+            if (Error2)
+            {
+                MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Bandwidth should be specified in MHz, so the lower and upper Frequencies will be in range 950 - 2150 MHz");
+                msdSame.Title = "Error";
+                ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+                msdSame.Destroy();
+                return;
+            }
+        }
+        else
+        {
+            //Lower, Upper
+            if (!Error1)
+            {
+                if ((Val1 < 950))
+                {
+                    Error1 = true;
+                } 
+            }
 
-				MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Bandwidth should be specified in MHz, so the lower and upper Frequencies will be in range 950 - 2150 MHz");
-				msdSame.Title = "Error";
-				ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-				msdSame.Destroy ();
-				return;
+            if (Error1)
+            {
+                MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Lower Frequency should be specified in MHz, in the range 950-2150");
+                msdSame.Title = "Error";
+                ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+                msdSame.Destroy();
+                return;
+            }
+            LowFreq = Val1 * 1e6;
 
-
-			}
-
-
-		} else {
-
-			//Lower, Upper
-
-
-			if (!Error1) {
-
-				if ((Val1 < 950)) {
-					Error1 = true;
-				} 
-			}
-
-			if (Error1) {
-
-				MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Lower Frequency should be specified in MHz, in the range 950-2150");
-				msdSame.Title = "Error";
-				ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-				msdSame.Destroy ();
-				return;
-
-
-			}
-			LowFreq = Val1 * 1e6;
-
-			if (!Error2) {
-
-				HighFreq = Val2 * 1e6;
+            if (!Error2)
+            {
+                HighFreq = Val2 * 1e6;
 
 
-				if ((Val2 > 2150)) {
-					Error2 = true;
-				}
-
-			}
-
-
-			if (Error2) {
-
-				MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Upper Frequency should be specified in MHz, in the range 950-2150");
-				msdSame.Title = "Error";
-				ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-				msdSame.Destroy ();
-				return;
+                if ((Val2 > 2150))
+                {
+                    Error2 = true;
+                }
+            }
 
 
-			}
+            if (Error2)
+            {
+                MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Upper Frequency should be specified in MHz, in the range 950-2150");
+                msdSame.Title = "Error";
+                ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+                msdSame.Destroy();
+                return;
+            }
 
-			if (LowFreq > HighFreq) {
+            if (LowFreq > HighFreq)
+            {
+                MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Upper and Lower Frequency mismatch ");
+                msdSame.Title = "Error";
+                ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+                msdSame.Destroy();
+                return;
+            }
+        }
 
-				MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Upper and Lower Frequency mismatch ");
-				msdSame.Title = "Error";
-				ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-				msdSame.Destroy ();
-				return;
+        UsefulBW = 0.75 * Rate;
+        double dNumSessions = Math.Ceiling((HighFreq - LowFreq) / UsefulBW);
+        int NumSessions = Convert.ToInt32(dNumSessions);
 
+        //Convert everything to Samples
 
-			}
+        string sVal = txtRecordingSize.Text;
+        double Val = 0;
+        Error1 = false;
+        try
+        {
+            Val = Convert.ToDouble(sVal);
+        }
+        catch
+        {
+            Error1 = true;
+        }
 
-		}
-
-		UsefulBW = 0.75 * Rate;
-		double dNumSessions = Math.Ceiling ((HighFreq - LowFreq)/UsefulBW);
-		int NumSessions = Convert.ToInt32 (dNumSessions);
-
-		//Convert everything to Samples
-
-		string sVal = txtRecordingSize.Text;
-		double Val = 0;
-		Error1 = false;
-		try {
+        if (!Error1)
+        {
+            if (Val <= 0)
+                Error1 = true;
+        }
 			
-			Val = Convert.ToDouble (sVal);
-		} catch {
-			Error1 = true;
-		}
+        if (Error1)
+        {
+            MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Please enter a positive size for file recording ");
+            msdSame.Title = "Error";
+            ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+            msdSame.Destroy();
+            return;
+        }
 
-		if (!Error1) {
-			if (Val <= 0)
-				Error1 = true;
-		}
-			
+        #region Recording Size
+        double dNumSamples = 0;
+        switch (cmbRecordingSize.Active)
+        {
+            case 0: //Time
+                dNumSamples = Math.Ceiling(Val * Rate * 1e-3);
+                break;
 
-		if (Error1) {
+            case 1:
+                dNumSamples = Val * 1e6;
+                break;
 
-			MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Please enter a positive size for file recording ");
-			msdSame.Title = "Error";
-			ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-			msdSame.Destroy ();
-			return;
+            case 2: 
+                dNumSamples = 1073741824 * Val * 0.25;
+                break;
+        }
+        #endregion
 
-		}
+        if (NumSessions > 1)
+        {
+            double dTotalSize = dNumSamples * 4 / (1073741824.0) * NumSessions;
 
-		double dNumSamples=0;
-		switch (cmbRecordingSize.Active)
-		{
-			//Time
-		case 0:
-			dNumSamples = Math.Ceiling (Val * Rate * 1e-3);
-			break;
-		case 1:
-			dNumSamples = Val * 1e6;
-			break;
-		case 2: 
-			dNumSamples = 1073741824 * Val * 0.25;
-			break;
-		}
+            MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Question, ButtonsType.YesNo, "Total File Size " + Math.Round(dTotalSize, 2).ToString("#.00") + " Gb. Continue?");
+            msdSame.Title = "File Size Warning";
+            ResponseType tp = (Gtk.ResponseType)msdSame.Run();
+            if (tp.ToString() == "No")
+            {
+                return;
+            }
 
-		if (NumSessions > 1) {
-			double dTotalSize = dNumSamples * 4 / (1073741824.0) * NumSessions;
-			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Question, ButtonsType.YesNo, "Total File Size "+Math.Round(dTotalSize, 2).ToString("#.00")+ " Gb. Continue?");
-			msdSame.Title="File Size Warning";
-			ResponseType tp = (Gtk.ResponseType)msdSame.Run(); 
+            msdSame.Destroy();
+        }
 
-			msdSame.Destroy();
+        if (FileName == null)
+        {
+            MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Please specify a file name for recording ");
+            msdSame.Title = "Error";
+            ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+            msdSame.Destroy();
+            return;
+        }
 
-			if (tp.ToString() == "No") {
-				return;
-			}	
+        string FileOnly = System.IO.Path.GetFileName(FileName);
+        string Path = System.IO.Path.GetDirectoryName(FileName);
+        string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
+        string Extn = System.IO.Path.GetExtension(FileName);
 
+        // Read Gain
+        double Gain = -1; //AGC
+        Error1 = false;
 
-		}
+        if (cmbAGC.Active == 1)
+        {
+            //Manual
+            string sGain = txtAGC.Text;
+            try
+            {
+                Gain = Convert.ToDouble(sGain);
+            }
+            catch
+            {
+                Error1 = true;
+            }
 
-
-		if (FileName == null) {
-
-			MessageDialog msdSame = new MessageDialog (this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Please specify a file name for recording ");
-			msdSame.Title = "Error";
-			ResponseType tp = (Gtk.ResponseType)msdSame.Run ();       
-			msdSame.Destroy ();
-			return;
-		}
-
-		string FileOnly =  System.IO.Path.GetFileName(FileName);
-		string Path = System.IO.Path.GetDirectoryName(FileName);
-		string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
-		string Extn = System.IO.Path.GetExtension(FileName);
-
-		// Read Gain
-		double Gain = -1; //AGC
-		Error1 = false;
-
-		if (cmbAGC.Active == 1) {
-
-			//Manual
-			string sGain = txtAGC.Text;
-			try{
-
-				Gain = Convert.ToDouble (sGain);
-			}
-
-			catch
-			{
-				Error1 = true;
-			}
-
-			if (!Error1) {
-
-				if ((Gain < 0) || (Gain > 30.5)) {
-					Error1 = true;
-				}
-			}
-		}
+            if (!Error1)
+            {
+                if ((Gain < 0) || (Gain > 30.5))
+                {
+                    Error1 = true;
+                }
+            }
+        }
 
 
-		if (Error1) {
+        if (Error1)
+        {
+            MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Gain setting should be set to either AGC or Manual gain in the range 0-30.5");
+            msdSame.Title = "Error";
+            ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+            msdSame.Destroy();
+            return;
+        }
 
-			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Gain setting should be set to either AGC or Manual gain in the range 0-30.5");
-			msdSame.Title="Error";
-			ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
-			msdSame.Destroy();
-			return;
+        Int64 NumSamples = Convert.ToInt64(dNumSamples);
 
-
-		}
-
-		Int64 NumSamples = Convert.ToInt64 (dNumSamples);
-
-		double f0 = CentralFreq;
-		string CurrFile = FileName;
-		string	spectru_exe = ConfigurationManager.AppSettings["Spectrum"];
-		if (!string.IsNullOrEmpty (spectru_exe) && File.Exists (spectru_exe)) {
-			for (int ii = 0; ii < NumSessions; ii++) {
-				if (NumSessions > 1) {
-					f0 = LowFreq + UsefulBW*(0.5 + ii);
-					CurrFile = Path +"/"+ FileWithoutExt + ii.ToString("000")  + Extn;
-				}
+        double f0 = CentralFreq;
+        string CurrFile = FileName;
+        string	record_exe = ConfigurationManager.AppSettings["Record"];
+        if (!string.IsNullOrEmpty(record_exe) && File.Exists(record_exe))
+        {
+            for (int ii = 0; ii < NumSessions; ii++)
+            {
+                if (NumSessions > 1)
+                {
+                    f0 = LowFreq + UsefulBW * (0.5 + ii);
+                    CurrFile = Path + "/" + FileWithoutExt + ii.ToString("000") + Extn;
+                }
 				Process p = new Process ();
 				p.StartInfo.UseShellExecute = false;
 				p.StartInfo.RedirectStandardOutput = true;
 				p.StartInfo.RedirectStandardError = true;
-				p.StartInfo.FileName = spectru_exe;
+                p.StartInfo.FileName = record_exe;
 				p.StartInfo.Arguments = "--mode record --freq " + f0.ToString () + " --rate " + Rate.ToString () + " --file " + CurrFile + " --nsamps " + NumSamples.ToString ();
-				try {
-					if (p.Start ()) {
+				try 
+                {
+					if (p.Start ()) 
+                    {
 						string output = p.StandardOutput.ReadToEnd ();
 						string err = p.StandardError.ReadToEnd ();
-						while (!p.HasExited) {
+						while (!p.HasExited) 
+                        {
 							output = p.StandardOutput.ReadToEnd ();	
 						}
 						//p.WaitForExit (1000 * 60);

@@ -16,7 +16,7 @@ public partial class MainWindow: Gtk.Window
 {
 	private static Logger logger = LogManager.GetCurrentClassLogger();
 
-	public double Rate = 14e6;
+	public double Rate = 20e6;
 	public double UsefulBW;
 	string FileName;
 	bool _connectionStatus = false;
@@ -40,6 +40,7 @@ public partial class MainWindow: Gtk.Window
 		logger.Debug ("Test debug message");
 		CheckConnectivity();
 		Timer t = new Timer (TimerCheckConnectivity, 5, 0, 2500);
+		SwitchtoRx ();
 	}
 
 	public void SwitchtoTx()
@@ -53,6 +54,7 @@ public partial class MainWindow: Gtk.Window
 		chkLoop.Sensitive = true;
 		label2.Text = "Tx Gain";
 		txtFilename.Text = "";
+		txtBandwidth.Sensitive = false;
 		FileName = "";
 	}
 
@@ -69,6 +71,8 @@ public partial class MainWindow: Gtk.Window
 		label2.Text = "AGC";
 		txtFilename.Text = "";
 		FileName = "";
+		txtBandwidth.Sensitive = true;
+
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -90,7 +94,7 @@ public partial class MainWindow: Gtk.Window
 		logger.Trace("Change Center Frequency");
 	}
 
-    protected void OncmbAGChanged(object sender, EventArgs e)
+	protected void OnCmbAGCChanged(object sender, EventArgs e)
 	{
 		if (!RecordMode)
 		{
@@ -108,6 +112,16 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnbtnSpectrumClicked (object sender, EventArgs e)
 	{
+		if (_connectionStatus == false) {
+		
+			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "USRP not connected");
+			msdSame.Title="Error";
+			ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+			msdSame.Destroy();
+			return;
+
+
+		}
 		//Read Center Frequency
 
 		if (cmbFrequencyMode.Active == 1) {
@@ -193,7 +207,7 @@ public partial class MainWindow: Gtk.Window
 		spectrum.ShowSpectrum (Filename);
 	}
 
-	protected void OnbtnFileClicked(object sender, EventArgs e)
+	protected void OnBtnFileClicked(object sender, EventArgs e)
 	{
 
 		FileName = "";
@@ -265,6 +279,20 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnbtnRecordClicked(object sender, EventArgs e)
     {
+
+
+		if (_connectionStatus == false) {
+
+			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "USRP not connected");
+			msdSame.Title="Error";
+			ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+			msdSame.Destroy();
+			return;
+
+
+		}
+
+
         string sVal1 = txtFrequency.Text;
         bool Error1 = false;
         double Val1 = 0;
@@ -523,7 +551,7 @@ public partial class MainWindow: Gtk.Window
 				p.StartInfo.RedirectStandardOutput = true;
 				p.StartInfo.RedirectStandardError = true;
                 p.StartInfo.FileName = record_exe;
-				p.StartInfo.Arguments = "--mode record --freq " + f0.ToString () + " --rate " + Rate.ToString () + " --file " + CurrFile + " --nsamps " + NumSamples.ToString ();
+				p.StartInfo.Arguments = "--mode record --freq " + f0.ToString () + " --rate " + Rate.ToString ()+ " --gain " + Gain.ToString () + " --file " + CurrFile + " --nsamps " + NumSamples.ToString ();
 				try 
                 {
 					if (p.Start ()) 
@@ -555,7 +583,10 @@ public partial class MainWindow: Gtk.Window
 	protected void OnRecoredModeClicked (object sender, EventArgs e)
 	{
 		RecordMode = radRecord.Active;
-		SwitchtoRx();
+		if (RecordMode)
+			SwitchtoRx ();
+		else
+			SwitchtoTx ();
 	}
 
 	protected void OnTransmitModeClicked(object sender, EventArgs e)
@@ -604,6 +635,150 @@ public partial class MainWindow: Gtk.Window
 	protected void OnRecordTransmitChanged(object sender, EventArgs e)
 	{
 		RecordMode = radRecord.Active;
+	}
+
+
+
+	protected void OnBtnTransmitClicked (object sender, EventArgs e)
+	{
+		if (_connectionStatus == false) {
+
+			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "USRP not connected");
+			msdSame.Title="Error";
+			ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+			msdSame.Destroy();
+			return;
+
+
+		}
+
+
+		string sVal1 = txtFrequency.Text;
+		bool Error1 = false;
+		double Val1 = 0;
+		try
+		{
+			Val1 = Convert.ToDouble(sVal1);
+		}
+		catch
+		{
+			Error1 = true;
+		}
+
+		double CentralFreq = 0.0;
+
+
+			//Center, BW
+			if (!Error1)
+			{
+				if ((Val1 < 950) || (Val1 > 2150))
+				{
+					Error1 = true;
+				}
+			}
+
+			if (Error1)
+			{
+				MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Central Frequency should be specified in MHz, in the range 950-2150");
+				msdSame.Title = "Error";
+				ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+				msdSame.Destroy();
+				return;
+			}
+			CentralFreq = Val1 * 1e6;
+
+		if (FileName == null)
+		{
+			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Please specify a file for playing ");
+			msdSame.Title = "Error";
+			ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+			msdSame.Destroy();
+			return;
+		}
+
+		string FileOnly = System.IO.Path.GetFileName(FileName);
+		string Path = System.IO.Path.GetDirectoryName(FileName);
+		string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
+		string Extn = System.IO.Path.GetExtension(FileName);
+
+		double Gain = -1.0;
+
+		string sGain = txtAGC.Text;
+		try
+		{
+			Gain = Convert.ToDouble(sGain);
+		}
+		catch
+		{
+			Error1 = true;
+		}
+
+		if (!Error1)
+		{
+			if ((Gain < 0) || (Gain > 30.5))
+			{
+				Error1 = true;
+			}
+		}
+
+		if (Error1)
+		{
+			MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "Gain setting should be set to Manual gain in the range 0-30.5");
+			msdSame.Title = "Error";
+			ResponseType tp = (Gtk.ResponseType)msdSame.Run();       
+			msdSame.Destroy();
+			return;
+		}
+
+
+		double f0 = CentralFreq;
+		string CurrFile = FileName;
+		string	record_exe = ConfigurationManager.AppSettings["Transmit"];
+		int NumSessions = 1;
+		if (!string.IsNullOrEmpty(record_exe) && File.Exists(record_exe))
+		{
+			for (int ii = 0; ii < NumSessions; ii++)
+			{
+				
+				Process p = new Process ();
+				p.StartInfo.UseShellExecute = false;
+				p.StartInfo.RedirectStandardOutput = true;
+				p.StartInfo.RedirectStandardError = true;
+				p.StartInfo.FileName = record_exe;
+				string LoopMode = "";
+				if (chkLoop.Active)
+					LoopMode = " --loop";
+				p.StartInfo.Arguments = "--mode play --freq " + f0.ToString () + " --rate " + Rate.ToString ()+ " --gain " + Gain.ToString () + " --file " + CurrFile+LoopMode;
+				try 
+				{
+					if (p.Start ()) 
+					{
+						string output = p.StandardOutput.ReadToEnd ();
+						string err = p.StandardError.ReadToEnd ();
+						while (!p.HasExited) 
+						{
+							output = p.StandardOutput.ReadToEnd ();	
+						}
+						//p.WaitForExit (1000 * 60);
+						string error = p.StandardError.ReadToEnd ();	
+					}
+				} catch (Exception ex) 
+				{
+					logger.Error (ex, "Failed to start spectrum process");
+				}
+			}
+		}
+
+	}
+
+	protected void OnRadRecordClicked (object sender, EventArgs e)
+	{
+		OnRecoredModeClicked(sender,e);
+	}
+
+	protected void OnRadTransmitClicked (object sender, EventArgs e)
+	{
+		OnTransmitModeClicked(sender,e);
 	}
 
 

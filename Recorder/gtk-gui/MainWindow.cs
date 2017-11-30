@@ -43,11 +43,11 @@ public partial class MainWindow
 	
 	private global::Gtk.Button button5;
 	
-	private global::Gtk.Image imgConnectivityLed;
-	
 	private global::Gtk.Label lblBandwith;
 	
 	private global::Gtk.Label lblDeviceId;
+	
+	private global::Gtk.Image imgConnectivityLed;
 
 	protected virtual void Build ()
 	{
@@ -194,7 +194,7 @@ public partial class MainWindow
 		this.radTransmit.Group = this.radRecord.Group;
 		this.fixed1.Add (this.radTransmit);
 		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.radTransmit]));
-		w13.X = 280;
+		w13.X = 260;
 		w13.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.txtAGC = new global::Gtk.Entry ();
@@ -257,13 +257,6 @@ public partial class MainWindow
 		w19.X = 212;
 		w19.Y = 455;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.imgConnectivityLed = new global::Gtk.Image ();
-		this.imgConnectivityLed.Name = "imgConnectivityLed";
-		this.fixed1.Add (this.imgConnectivityLed);
-		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.imgConnectivityLed]));
-		w20.X = 434;
-		w20.Y = 12;
-		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.lblBandwith = new global::Gtk.Label ();
 		this.lblBandwith.Name = "lblBandwith";
 		this.lblBandwith.LabelProp = global::Mono.Unix.Catalog.GetString ("Bandwidth");
@@ -273,18 +266,25 @@ public partial class MainWindow
 		this.lblBandwith.WidthChars = 19;
 		this.lblBandwith.Angle = 0.4D;
 		this.fixed1.Add (this.lblBandwith);
-		global::Gtk.Fixed.FixedChild w21 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.lblBandwith]));
-		w21.X = 55;
-		w21.Y = 122;
+		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.lblBandwith]));
+		w20.X = 55;
+		w20.Y = 122;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.lblDeviceId = new global::Gtk.Label ();
 		this.lblDeviceId.Name = "lblDeviceId";
 		this.lblDeviceId.LabelProp = global::Mono.Unix.Catalog.GetString ("127.000.000.001");
 		this.lblDeviceId.Justify = ((global::Gtk.Justification)(2));
 		this.fixed1.Add (this.lblDeviceId);
-		global::Gtk.Fixed.FixedChild w22 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.lblDeviceId]));
-		w22.X = 423;
-		w22.Y = 38;
+		global::Gtk.Fixed.FixedChild w21 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.lblDeviceId]));
+		w21.X = 370;
+		w21.Y = 38;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.imgConnectivityLed = new global::Gtk.Image ();
+		this.imgConnectivityLed.Name = "imgConnectivityLed";
+		this.fixed1.Add (this.imgConnectivityLed);
+		global::Gtk.Fixed.FixedChild w22 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.imgConnectivityLed]));
+		w22.X = 400;
+		w22.Y = 12;
 		this.Add (this.fixed1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -294,7 +294,12 @@ public partial class MainWindow
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btnSpectrum.Clicked += new global::System.EventHandler (this.OnbtnSpectrumClicked);
+		this.btnFile.Clicked += new global::System.EventHandler (this.OnBtnFileClicked);
+		this.cmbAGC.Changed += new global::System.EventHandler (this.OnCmbAGCChanged);
 		this.cmbFrequencyMode.Changed += new global::System.EventHandler (this.OnFrequencyModeChanged);
+		this.radRecord.Clicked += new global::System.EventHandler (this.OnRadRecordClicked);
+		this.radTransmit.Clicked += new global::System.EventHandler (this.OnRadTransmitClicked);
 		this.btnRecord.Clicked += new global::System.EventHandler (this.OnbtnRecordClicked);
+		this.btnTransmit.Clicked += new global::System.EventHandler (this.OnBtnTransmitClicked);
 	}
 }

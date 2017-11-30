@@ -6,7 +6,7 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../bin/Release/Recorder.exe" internal="true" />
+    <widget-library name="../bin/Debug/Recorder.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="3041 1000">
     <property name="MemberName" />
@@ -62,6 +62,7 @@ File Size [GB]</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Specify File</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnBtnFileClicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -124,6 +125,7 @@ File Size [GB]</property>
             <property name="Items" translatable="yes">Automatic
 Manual</property>
             <property name="Active">0</property>
+            <signal name="Changed" handler="OnCmbAGCChanged" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -169,10 +171,12 @@ Lower Freq [MHz]</property>
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Record</property>
+            <property name="Active">True</property>
             <property name="DrawIndicator">True</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
             <property name="Group">group1</property>
+            <signal name="Clicked" handler="OnRadRecordClicked" />
           </widget>
           <packing>
             <property name="X">55</property>
@@ -188,9 +192,10 @@ Lower Freq [MHz]</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
             <property name="Group">group1</property>
+            <signal name="Clicked" handler="OnRadTransmitClicked" />
           </widget>
           <packing>
-            <property name="X">280</property>
+            <property name="X">260</property>
             <property name="Y">10</property>
           </packing>
         </child>
@@ -251,6 +256,7 @@ Lower Freq [MHz]</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Transmit</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnBtnTransmitClicked" />
           </widget>
           <packing>
             <property name="X">289</property>
@@ -268,15 +274,6 @@ Lower Freq [MHz]</property>
           <packing>
             <property name="X">212</property>
             <property name="Y">455</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Image" id="imgConnectivityLed">
-            <property name="MemberName" />
-          </widget>
-          <packing>
-            <property name="X">434</property>
-            <property name="Y">12</property>
           </packing>
         </child>
         <child>
@@ -301,8 +298,17 @@ Lower Freq [MHz]</property>
             <property name="Justify">Center</property>
           </widget>
           <packing>
-            <property name="X">423</property>
+            <property name="X">370</property>
             <property name="Y">38</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Image" id="imgConnectivityLed">
+            <property name="MemberName" />
+          </widget>
+          <packing>
+            <property name="X">400</property>
+            <property name="Y">12</property>
           </packing>
         </child>
       </widget>

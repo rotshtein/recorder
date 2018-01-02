@@ -322,87 +322,93 @@ public partial class MainWindow : Gtk.Window
 
     protected void OnBtnFileClicked(object sender, EventArgs e)
     {
-
-        FileName = "";
-        if (RecordMode == true)
+        try
         {
-            Gtk.FileChooserDialog filechooser = null;
-
-            try
-            {
-                filechooser = new Gtk.FileChooserDialog("Choose the file to save",
-                        this,
-                        FileChooserAction.Save,
-                        "Cancel", ResponseType.Cancel,
-                        "Save", ResponseType.Accept);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Choose receive File");
-            }
             FileName = "";
-            filechooser.Show();
-            if (filechooser.Run() == (int)ResponseType.Accept)
+            if (RecordMode == true)
             {
-                FileName = filechooser.Filename;
-            }
+                Gtk.FileChooserDialog filechooser = null;
 
-            filechooser.Destroy();
-
-
-            string FileOnly = System.IO.Path.GetFileName(FileName);
-            string path = System.IO.Path.GetDirectoryName(FileName);
-            string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
-
-
-            string[] FileList = System.IO.Directory.GetFiles(path, FileWithoutExt + "*", System.IO.SearchOption.TopDirectoryOnly);
-
-            bool Fexist = false;
-            if (FileList.Length > 0)
-                Fexist = true;
-
-            if (Fexist)
-            {
-                
-                MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Question, ButtonsType.YesNo, "File Exists. Overwrite?");
-                msdSame.Title = "File Exists";
-                ResponseType tp = (Gtk.ResponseType)msdSame.Run();
-
-                msdSame.Destroy();
-
-                if (tp.ToString() == "No")
+                try
                 {
-                    return;
+                    filechooser = new Gtk.FileChooserDialog("Choose the file to save",
+                            this,
+                            FileChooserAction.Save,
+                            "Cancel", ResponseType.Cancel,
+                            "Save", ResponseType.Accept);
                 }
-            }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Choose receive File");
+                }
+                FileName = "";
+                filechooser.Show();
+                if (filechooser.Run() == (int)ResponseType.Accept)
+                {
+                    FileName = filechooser.Filename;
+                }
 
+                filechooser.Destroy();
+
+
+                string FileOnly = System.IO.Path.GetFileName(FileName);
+                string path = System.IO.Path.GetDirectoryName(FileName);
+                string FileWithoutExt = System.IO.Path.GetFileNameWithoutExtension(FileName);
+
+
+                string[] FileList = System.IO.Directory.GetFiles(path, FileWithoutExt + "*", System.IO.SearchOption.TopDirectoryOnly);
+
+                bool Fexist = false;
+                if (FileList.Length > 0)
+                    Fexist = true;
+
+                if (Fexist)
+                {
+
+                    MessageDialog msdSame = new MessageDialog(this, DialogFlags.Modal, MessageType.Question, ButtonsType.YesNo, "File Exists. Overwrite?");
+                    msdSame.Title = "File Exists";
+                    ResponseType tp = (Gtk.ResponseType)msdSame.Run();
+
+                    msdSame.Destroy();
+
+                    if (tp.ToString() == "No")
+                    {
+                        return;
+                    }
+                }
+
+            }
+            else
+            {
+                Gtk.FileChooserDialog filechooser = null;
+                try
+                {
+                    filechooser = new Gtk.FileChooserDialog("Choose the file to transmit",
+                        this,
+                        FileChooserAction.Open,
+                        "Cancel", ResponseType.Cancel,
+                        "Open", ResponseType.Accept);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Choose transmit File");
+                }
+                FileName = "";
+                filechooser.Show();
+                if (filechooser.Run() == (int)ResponseType.Accept)
+                {
+                    FileName = filechooser.Filename;
+                }
+
+                filechooser.Destroy();
+
+            }
+            txtFilename.Text = FileName;
         }
-        else
+        catch (Exception ex)
         {
-            Gtk.FileChooserDialog filechooser = null;
-            try
-            {
-                filechooser = new Gtk.FileChooserDialog("Choose the file to transmit",
-                    this,
-                    FileChooserAction.Open,
-                    "Cancel", ResponseType.Cancel,
-                    "Open", ResponseType.Accept);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Choose transmit File");
-            }
-            FileName = "";
-            filechooser.Show();
-            if (filechooser.Run() == (int)ResponseType.Accept)
-            {
-                FileName = filechooser.Filename;
-            }
-
-            filechooser.Destroy();
-
+            logger.Error(ex, "Error while choosing file");
         }
-        txtFilename.Text = FileName;
     }
 
     protected void OnbtnRecordClicked(object sender, EventArgs e)

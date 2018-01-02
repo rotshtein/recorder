@@ -24,3 +24,4 @@ Recorder/obj/
 /Recorder/bin/Debug/data.bin
 /Recorder/bin/Debug/DR.Login.Client.Core.dll
 /*.userprefs
+.vs

@@ -102,7 +102,7 @@ namespace Recorder
                 npSurface.Add(lp);
                 npSurface.XAxis1.Label = "Frequncy [Hz]";
                 npSurface.YAxis1.Label = "Power [db]";
-                npSurface.Title = "Central Frequncy = " + (_central_frequncy / 1e6).ToString() + " MHz - Bandwidth = " + (_rate / 2 / 1e6).ToString() + " MHz";
+                npSurface.Title = "Central Frequncy = " + (_central_frequncy / 1e6).ToString() + " MHz - Bandwidth = " + (_rate / 1e6).ToString() + " MHz";
                 npSurface.BackColor = System.Drawing.Color.White;
 
                 npSurface.Refresh();

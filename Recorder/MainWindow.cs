@@ -98,6 +98,7 @@ public partial class MainWindow : Gtk.Window
             txtFilename.Text = "";
             txtBandwidth.Sensitive = false;
             txtRecordingSize.Sensitive = false;
+            txtBandwidth.Sensitive = false;
             FileName = "";
         }
 		catch (Exception ex)
@@ -306,6 +307,12 @@ public partial class MainWindow : Gtk.Window
                     return false;
                 }
                 string Filename = "/home/x300/spectrum.dat";
+                string file = ConfigurationManager.AppSettings["SpectrumDataFile"];
+				if (!string.IsNullOrEmpty(file))
+				{
+                    Filename = file;
+				}
+
                 ShowStatusMessage("Fetching Specrtum...");
                 Recorder.winSpectrum spectrum = new Recorder.winSpectrum();
                 _currentProcess = spectrum.GetMessurment(CentralFreq, Rate, Gain, Filename);
@@ -341,7 +348,16 @@ public partial class MainWindow : Gtk.Window
                 {
                     logger.Error(ex, "Choose receive File");
                 }
-                FileName = "";
+
+                AddFilters(ref filechooser);
+
+				FileName = "";
+                string dir = ConfigurationManager.AppSettings["DataDirectory"];
+                if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
+                {
+                    filechooser.SetCurrentFolder(dir);
+                }
+
                 filechooser.Show();
                 if (filechooser.Run() == (int)ResponseType.Accept)
                 {
@@ -393,7 +409,15 @@ public partial class MainWindow : Gtk.Window
                 {
                     logger.Error(ex, "Choose transmit File");
                 }
+
+                AddFilters(ref filechooser);
+
                 FileName = "";
+				string dir = ConfigurationManager.AppSettings["DataDirectory"];
+				if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
+				{
+					filechooser.SetCurrentFolder(dir);
+				}
                 filechooser.Show();
                 if (filechooser.Run() == (int)ResponseType.Accept)
                 {
@@ -409,6 +433,20 @@ public partial class MainWindow : Gtk.Window
         {
             logger.Error(ex, "Error while choosing file");
         }
+    }
+
+    protected void AddFilters(ref Gtk.FileChooserDialog fc)
+    {
+		FileFilter filter = new FileFilter();
+		filter.Name = "Data Files (*.dat, *.bin";
+		filter.AddPattern("*.dat");
+		filter.AddPattern("*.bin");
+		fc.AddFilter(filter);
+		//second filter
+		filter = new FileFilter();
+		filter.Name = "All files (*.*)";
+		filter.AddPattern("*.*");
+		fc.AddFilter(filter);
     }
 
     protected void OnbtnRecordClicked(object sender, EventArgs e)
@@ -1022,6 +1060,27 @@ public partial class MainWindow : Gtk.Window
                     {
                         logger.Error(ex, "Failed to start spectrum process");
                     }
+					Gtk.Application.Invoke(delegate
+					{
+						MessageDialog msdSame1 = new MessageDialog(this, DialogFlags.Modal, MessageType.Info, ButtonsType.Close, "Finished");
+						msdSame1.Title = "Info";
+						//msdSame1.Response += (object o, ResponseArgs args) => { };
+						ResponseType tp1 = (Gtk.ResponseType)msdSame1.Run();
+						msdSame1.Destroy();
+						try
+						{
+							if (_currentProcess != null)
+							{
+								int i = _currentProcess.Id;
+								_currentProcess.Kill();
+								_currentProcess = null;
+							}
+						}
+						catch (Exception ex)
+						{
+							logger.Error(ex, "Finished - Dialog message error");
+						}
+					});
                     _currentProcess = null;
                 }
             }
